@@ -1,0 +1,115 @@
+<% content_for :section_title, "Internationalization (I18n)" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro comes preconfigured with internationalization support allowing you to translate your app to any locale easily.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">I18n Settings</h2>
+    <p class="mb-4">Inside <code>config/application.rb</code> you will find several settings for I18n:</p>
+    <ul class="mb-4 list-disc list-inside">
+      <li><code>available_locales</code> - An array of locales your app supports</li>
+      <li><code>default_locale</code> - The default locale to use</li>
+      <li><code>fallbacks</code> - Whether or not to use the default locale as a fallback</li>
+      <li><code>load_path</code> - Folders to look for translation files</li>
+    </ul>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Requests</h2>
+    <p class="mb-4">The <code>SetLocale</code> concern sets the locale at the beginning of each request. It checks for a locale from several places:</p>
+
+    <ul class="mb-4 list-disc list-inside">
+      <li><code>params[:locale]</code></li>
+      <li><code>HTTP_ACCEPT_LANGUAGE</code> header</li>
+      <li>The current user's <code>preferred_language</code> attribute</li>
+      <li>I18n.default_locale</li>
+    </ul>
+
+    <p class="mb-4">You can customize this concern to change the order or look for the locale in other places such as the domain or subdomain.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Devise</h2>
+    <p class="mb-4">The <%= link_to "devise-i18n", "https://github.com/tigrish/devise-i18n", target: :_blank %> gem comes preinstalled to provide translations for most languages.</p>
+    <p class="mb-4">These translations don't include every key since Devise has been customized. You will need to customize the translations using the following command:</p>
+    <pre class="mb-4"><code>rails g devise:i18n:locale es</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Translation Examples</h2>
+    <p class="mb-4">Jumpstart Pro uses the standard Rails I18n functionality. See the <%= link_to "Rails I18n guide", "https://guides.rubyonrails.org/i18n.html", target: :_blank %> for details on how Rails implements I18n.</p>
+    <p class="mb-4">Translations are automatically scoped by specifying a period <code>.</code> at the beginning of the key. Without the period (<code>.</code>) at the beginning, it will start lookup at the top level.<p>
+    <p class="mb-4"><code>t("hello")</code> in <code>app/views/dashboard/show.html.erb</code> will look for <code>en.hello</code></p>
+    <p class="mb-4"><code>t(".hello")</code> in <code>app/views/dashboard/show.html.erb</code> will look for <code>en.dashboard.show.hello</code></p>
+
+    <p class="font-bold">Views</p>
+    <pre class="lang-ruby"><code># app/views/dashboard/show.html.erb
+&lt;%= t ".hello" %&gt;</code></pre>
+    <pre class="lang-yaml"><code>en:
+  dashboard:
+    show:
+      hello: "Your placeholder text here"</code></pre>
+
+    <p class="font-bold">With Arguments</p>
+    <pre class="lang-ruby"><code># app/views/dashboard/show.html.erb
+&lt;%= t ".welcome", name: "Chris" %&gt;</code></pre>
+    <pre class="lang-yaml"><code>en:
+  dashboard:
+    show:
+      hello: "Welcome, %{name}"</code></pre>
+
+    <p class="font-bold mb-2">With HTML</p>
+    <p>Keys ending in <code>_html</code> will render as HTML.</p>
+    <pre class="lang-ruby"><code># app/views/dashboard/show.html.erb
+&lt;%= t ".welcome_html", name: "Chris" %&gt;</code></pre>
+    <pre class="lang-yaml"><code>en:
+  dashboard:
+    show:
+      hello_html: "Welcome, &lt;strong&gt;%{name}&lt;/strong&gt;"</code></pre>
+    <p class="text-sm font-bold text-gray-700">Output</p>
+    <pre class="lang-html"><code>Hello, <strong>Chris</strong></code></pre>
+
+    <p class="font-bold">Controllers</p>
+    <pre class="lang-ruby"><code># app/controllers/messages_controller.rb
+MessagesController < BaseController
+  def update
+    # Some business logic
+
+    return redirect_to:index, notice: t(".notice") if @resource.save
+    render :edit, alert: t(".alert")
+  end
+ end</code></pre>
+
+    <pre class="lang-yaml"><code>en:
+  messages:
+    update:
+      notice: "Message was successfully updated."
+      alert: "Unable to update message."</code></pre>
+    <p class="font-bold">Placeholders</p>
+    <pre class="lang-ruby"><code>&lt;%= f.input :name, placeholder: true %&gt;</code></pre>
+    <pre class="lang-yaml"><code>en:
+  helpers:
+    placeholder:
+      message:
+        name: "Your placeholder text here"</code></pre>
+
+    <p class="font-bold">Model names</p>
+    <pre><code>en:
+  activerecord:
+    models:
+      accounts: "Teams"</code></pre>
+
+    <p class="font-bold">Model attributes</p>
+    <pre><code>en:
+  activerecord:
+    attributes:
+      api_token:
+        last_used_at: "Last Used"</code></pre>
+
+    <p class="font-bold">Model validation errors</p>
+    <pre><code>en:
+  activerecord:
+    errors:
+      models:
+        account:
+          attributes:
+            domain:
+              reserved: "%{value} is reserved."</code></pre>
+
+  </div>
+</div>
+

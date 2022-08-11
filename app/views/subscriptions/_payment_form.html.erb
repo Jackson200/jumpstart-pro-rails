@@ -1,0 +1,47 @@
+<% if Jumpstart.config.collect_billing_address? %>
+  <h5 class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t("subscriptions.new.billing_address") %></h5>
+  <div class="flex justify-between text-sm">
+    <div>
+    <% if current_account.billing_address %>
+      <%= render current_account.billing_address %>
+    <% else %>
+      <%= t(".no_billing_address") %>
+    <% end %>
+    </div>
+    <%= link_to "Edit", new_subscription_path(plan: @plan.id) %>
+  </div>
+<% end %>
+
+<h5 class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t("subscriptions.new.payment_method") %></h5>
+
+<div data-controller="toggle">
+  <% if (default_payment_method = current_account.payment_processor&.default_payment_method) %>
+    <div data-toggle-target="toggleable">
+      <div class="flex items-center mb-8">
+        <div class="flex-1">
+          <label><%= t(".payment_method") %></label>
+          <i class="fab fa-cc-<%= default_payment_method.brand.downcase %> text-gray-700"></i> <%= payment_method_details(default_payment_method) %>
+        </div>
+        <%= link_to t(".change"), "#", class: "btn btn-light-gray", data: { action: "click->toggle#toggle" } %>
+      </div>
+
+      <%= form_with url: subscriptions_path, method: :post do |f| %>
+        <%= f.hidden_field :plan, value: @plan.id if @plan.present? %>
+        <%= f.button t(".subscribe"), id: 'submit-button', class: "btn btn-primary btn-large btn-block", data: { action: "click->stripe#submit", disable_with: disable_with(t(".processing")) } %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= tag.div class: ("hidden" if default_payment_method), data: { toggle_target: "toggleable" } do %>
+    <%= render 'subscriptions/forms/stripe', client_secret: @client_secret, pay_subscription: @pay_subscription, plan: @plan if show_payment_processor?(:stripe, plan: @plan) %>
+    <%= render 'subscriptions/forms/braintree' if show_payment_processor?(:braintree, plan: @plan) %>
+    <%= render 'subscriptions/forms/paypal'    if show_payment_processor?(:paypal, plan: @plan) %>
+    <%= render 'subscriptions/forms/paddle'    if show_payment_processor?(:paddle, plan: @plan) %>
+  <% end %>
+
+  <% if @plan.has_trial? %>
+    <p class="mt-4 text-center text-sm text-gray-500">After your trial ends, you will be charged <%= @plan.amount_with_currency %> per <%= @plan.interval %> starting <%= l @plan.trial_period_days.days.from_now.to_date, format: :long %>. You can always cancel before then.</p>
+  <% else %>
+    <p class="mt-4 text-center text-sm text-gray-500">By confirming your subscription, you allow <%= Jumpstart.config.application_name %> to charge your payment method for this payment and future payments in accorandce with our terms.</p>
+  <% end %>
+</div>

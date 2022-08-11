@@ -1,0 +1,25 @@
+<% content_for :head, tag(:meta, name: "stripe-key", content: Pay::Stripe.public_key) %>
+
+<%= form_with url: local_assigns.fetch(:url, subscriptions_path),
+  method: local_assigns.fetch(:method, :post),
+  id: "stripe-subscribe-form",
+  data: {
+    controller: "stripe",
+    stripe_target: "form",
+    action: "submit->stripe#submit",
+    stripe_client_secret_value: client_secret,
+    stripe_return_url_value: plan&.trial_period_days? ? subscriptions_stripe_trial_url(plan: plan.id) : subscription_stripe_url(pay_subscription)
+  } do |f| %>
+
+  <div class="form-group">
+    <div data-stripe-target="paymentElement"></div>
+  </div>
+
+  <div data-stripe-target="error" role="alert" class="form-group text-red-600 text-sm"></div>
+
+  <div class="text-center">
+    <%= f.button local_assigns.fetch(:button, plan&.trial_period_days? ? t("subscriptions.new.start_trial") : t("subscriptions.new.subscribe")), id: 'submit-button', class: "btn btn-primary btn-large btn-block", data: { action: "click->stripe#submit", disable_with: disable_with(t("subscriptions.new.processing")) } %>
+  </div>
+
+  <%= f.hidden_field :plan, value: plan.try(:id) %>
+<% end %>

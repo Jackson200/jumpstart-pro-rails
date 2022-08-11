@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html class="h-full antialiased" lang="<%= I18n.locale %>">
+  <head>
+    <title>
+      <% if content_for?(:title) %>
+        <%= yield :title %> |
+      <% end %>
+      <%= Jumpstart.config.application_name %>
+    </title>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+
+    <%# Be sure to add your own custom favicons %>
+    <%= render "shared/favicons" %>
+    <%= render "shared/payments_dependencies" %>
+
+    <%# Replace this with your FontAwesome Pro Kit code %>
+    <script src="https://kit.fontawesome.com/0e5ab6a736.js"></script>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <%= yield :head %>
+  </head>
+
+  <body class="h-full font-sans antialiased font-normal leading-normal bg-white">
+    <div class="main flex flex-col">
+      <%= render partial: "shared/flash" %>
+      <%= yield %>
+    </div>
+
+    <%= render partial: "shared/footer" unless turbo_native_app? %>
+  </body>
+</html>

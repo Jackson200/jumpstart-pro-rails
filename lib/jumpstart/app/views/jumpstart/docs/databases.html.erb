@@ -1,0 +1,19 @@
+<% content_for :section_title, "Databases" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro uses PostgreSQL and Redis to run your application.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">PostgreSQL</h2>
+    <p class="mb-4">Our primary database in Jumpstart Pro is PostgreSQL. It has fantastic support for json columns that we take advantage of in several places and can be extended with things like PostGIS for geospatial functionality.</p>
+
+    <p class="mb-4">While we don't recommend or support this, if you <em>really</em> want to use a different database, you can use Rails 6's new db:system:change command, but you'll probably need to edit migrations and the code accordingly. Be warned.</p>
+    <pre><code>rails db:system:change --to=mysql</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Redis</h2>
+    <p class="mb-4">Redis comes in handy for many things, several of which we pre-configure for you in Jumpstart Pro.</p>
+    <p class="mb-4">Action Cable uses Redis as the backend by default. If you want any realtime functionality, you'll need to make sure Redis is installed and running. If you wish to change this, you can edit <code>config/cable.yml</code></p>
+    <p class="mb-4">We're also using Redis as the cache store for Rails. If you'd like to switch to Memcached or something else, you can edit each of the environments configs and change the <code>cache_store</code></p>
+    <p class="mb-4">Sidekiq also depends upon Redis for storing jobs, if you're using Sidekiq for background processing.</p>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<% content_for :section_title, "Pagination" %>
+
+<div class="mb-10">
+  <div class="mb-4">
+    <p>Styling is automatically defined to match with the <%= link_to "Pagy", "https://github.com/ddnexus/pagy", target: :_blank %> gem's HTML and classes.</p>
+  </div>
+
+  <h4 class="uppercase text-gray-700 tracking-wide font-semibold text-sm border-b border-gray-400 pb-3 mb-3">Default</h4>
+
+  <%= render "jumpstart/docs/snippet" do %>
+    <%== pagy_nav @pagy %>
+  <% end %>
+</div>
+
+<div class="mb-10">
+  <h4 class="uppercase text-gray-700 tracking-wide font-semibold text-sm border-b border-gray-400 pb-3 mb-3">Dark</h4>
+
+  <%= render "jumpstart/docs/snippet" do %>
+<nav aria-label="Page navigation example">
+  <div class="inline-flex flex-wrap items-center justify-start">
+    <a class="rounded-tl rounded-bl bg-gray-800 text-white py-2 px-4 no-underline cursor-pointer hover:bg-gray-700" href="#">Previous</a>
+    <a class="text-white no-underline py-2 px-4 bg-gray-700 cursor-pointer hover:bg-gray-700" href="#">1</a>
+    <a class="no-underline bg-gray-800 text-white p-2 px-4 cursor-pointer hover:bg-gray-700" href="#">2</a>
+    <a class="no-underline bg-gray-800 text-white py-2 px-4 cursor-pointer hover:bg-gray-700" href="#" >3</a>
+    <a class="rounded-tr rounded-br bg-gray-800 text-white  py-2 px-4 no-underline cursor-pointer hover:bg-gray-700" href="#">Next</a>
+  </div>
+</nav>
+  <% end %>
+</div>

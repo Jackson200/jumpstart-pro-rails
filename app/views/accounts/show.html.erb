@@ -1,0 +1,73 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="w-full mb-4 lg:w-1/4 lg:p-4">
+    <%= render partial: "shared/account_navbar" %>
+  </div>
+
+  <div class="w-full lg:w-3/4 lg:p-4">
+    <div class="p-4 bg-white border border-gray-200 rounded-lg lg:p-10">
+
+      <div class="sm:flex items-center justify-between mb-5">
+        <div class="flex items-center">
+          <%= account_avatar @account, class: "flex-shrink-0 rounded-full mr-4 h-10 w-10" %>
+          <h1 class="h3"><%= @account.name %></h1>
+        </div>
+
+        <div class="flex-shrink-0 mt-3 sm:mt-0 sm:text-right">
+          <%= switch_account_button @account, label: t(".switch"), class: "btn btn-light-gray", form_class: "inline-block" unless current_account == @account %>
+          <%= link_to t(".edit_account"), edit_account_path(@account), class: "btn btn-light-gray" if !@account.personal? && account_admin?(@account, current_user) %>
+        </div>
+      </div>
+
+      <% if @account.personal? %>
+        <div class="flex items-center text-sm bg-blue-50 text-blue-800 px-4 py-2 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 inline-block h-4 w-4 mr-3 text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <%= t ".personal_team_description" %>
+        </div>
+      <% else %>
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= AccountUser.human_attribute_name(:user) %></th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= AccountUser.human_attribute_name(:roles) %></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @account.account_users.includes(:user).each do |account_user| %>
+              <% user = account_user.user %>
+              <tr class="border-t border-gray-100">
+                <td class="p-3 font-medium">
+                  <%= image_tag avatar_url_for(user), class: "hidden lg:inline-block h-6 rounded-full mr-2" %>
+                  <%= user.name || user.email %>
+                </td>
+                <td class="p-3 text-sm font-medium text-gray-700"><%= account_user_roles(@account, account_user).join(", ") %></td>
+                <td class="p-3 text-right"><%= link_to t(".edit"), edit_account_account_user_path(@account, account_user), class: "btn btn-link" if account_admin?(@account, current_user) %></td>
+              </tr>
+            <% end %>
+
+            <%# Invitations %>
+            <% @account.account_invitations.each do |account_invitation| %>
+              <tr class="border-t border-gray-200">
+                <td class="p-3 font-medium">
+                  <%= image_tag avatar_url_for(account_invitation), class: "hidden lg:inline-block h-6 rounded-full mr-2" %>
+                  <%= account_invitation.name %>
+                  <%= badge "Awaiting response" %>
+                  <%= tag.button t(".copy_link"), class: "btn btn-link", data: { controller: "clipboard", clipboard_text: account_invitation_url(account_invitation) } if account_admin?(@account, current_user) %>
+                </td>
+                <td class="p-3 text-sm font-medium text-gray-700"><%= account_user_roles(@account, account_invitation).join(", ") %></td>
+                <td class="p-3 text-right">
+                  <%= link_to t(".edit"), edit_account_account_invitation_path(@account, account_invitation), class: "btn btn-link" if account_admin?(@account, current_user) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <%= link_to t(".invite"), new_account_account_invitation_path(@account), class: "mt-2 btn btn-light-gray" if !@account.personal? && account_admin?(@account, current_user) %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<%= form_with model: @config, url: config_path do |f| %>
+  <div data-controller="tabs" class="flex flex-wrap items-start justify-between main">
+    <div class="sticky top-0 w-full px-4 pt-4 md:w-1/5 lg:px-8">
+      <%= link_to image_tag("jumpstart.svg"), root_path, class: "block" %>
+
+      <%= link_to "Back to the app", main_app.root_path, class: "block text-sm mt-4 py-1 text-gray-900" %>
+      <%= link_to "Documentation", docs_path, class: "block text-sm py-1 text-gray-900", target: :_blank %>
+
+      <h4 class="mt-4 font-semibold mb-1 text-gray-800">Configuration</h4>
+      <div>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary focus:outline-none" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="application">Application</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="development">Development</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="accounts">Accounts</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="workers">Background Workers</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="integrations">Integrations</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="oauth">Login & OAuth</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="payments">Payments</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="email">Transactional Email</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="turbo-native">Turbo Native</a>
+        <a class="block py-1 text-gray-700 no-underline hover:text-primary" data-tabs-target="tab" data-action="click->tabs#change" href="#" id="users">Admin Users</a>
+      </div>
+
+      <div class="mt-4">
+        <%= f.button class: "btn btn-block btn-primary" do %>
+          <%= tag.span "Save changes", class: "when-enabled" %>
+          <%= tag.span class: "when-disabled" do %>
+            <%= inline_svg_tag "icons/spinner.svg", class: "animate-spin inline-block h-4 w-4 mr-2" %>
+            Processing...
+          <% end %>
+        <% end %>
+
+        <p class="text-gray-600 text-xs mt-2">Jumpstart Pro will install any new dependencies after saving and automatically restart your app.</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col w-full h-full bg-white border-l border-gray-200 md:w-4/5 docs-main">
+      <div class="px-4 pt-4 md:px-20 lg:px-40 xl:px-56">
+        <div class="mb-4">
+          <%= render "shared/flash" %>
+        </div>
+
+        <% %w{ application development multitenancy workers integrations oauth payments email turbo_native users }.each do |name| %>
+          <div data-tabs-target="panel" class="hidden">
+            <%= render name, f: f %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "admin_user_modal", locals: { user: @user } %>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    let urlParams = new URLSearchParams(window.location.search);
+    let reload = urlParams.get('reload');
+    if (reload) {
+      setTimeout(function(){ window.location.href = '/'; }, 7000)
+    }
+  })
+</script>

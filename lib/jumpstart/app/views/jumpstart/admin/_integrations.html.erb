@@ -1,0 +1,22 @@
+<div class="form-group">
+  <h4>Integrations</h4>
+  <p class="small text-gray-600">Integrations with popular services can be enabled with the click of a button. Simply add your credentials and enable the integration and we'll take care of installing and configuring it for you.</p>
+  <pre class="mt-4"><code>rails credentials:edit --environment=development</code></pre>
+
+  <h5>Services</h5>
+  <% Jumpstart::Configuration::Integratable::AVAILABLE_PROVIDERS.each do |integration_name, name| %>
+    <div class="mb-4">
+      <div class="font-weight-semibold"><%= integration_name %></div>
+
+      <div class="custom-control custom-checkbox">
+        <% if Jumpstart::Configuration::Integratable.has_credentials?(name) %>
+          <%= check_box_tag "configuration[integrations][]", name, Jumpstart.config.integrations.include?(name), disabled: false, id: name, class: "form-checkbox" %>
+          <%= label_tag name, "Enable", class: "inline-block" %>
+        <% else %>
+          <%= check_box_tag "configuration[integrations][]", name, false, disabled: true, id: name, class: "form-checkbox" %>
+          <%= label_tag name, "Add credentials to enable", class: "inline-block" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

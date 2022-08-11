@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="h-full antialiased" lang="<%= I18n.locale %>">
+  <head>
+    <title>
+      <% if content_for?(:title) %>
+        <%= yield :title %> |
+      <% end %>
+      <%= Jumpstart.config.application_name %>
+    </title>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= viewport_meta_tag %>
+
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
+
+    <%# Be sure to add your own custom favicons %>
+    <%= render "shared/favicons" %>
+    <%= render "shared/payments_dependencies" %>
+
+    <%# Replace this with your FontAwesome Pro Kit code %>
+    <script defer src="https://kit.fontawesome.com/0e5ab6a736.js" crossorigin="anonymous"></script>
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <%= yield :head %>
+  </head>
+
+  <body class="h-full font-sans antialiased font-normal leading-normal bg-gray-50">
+    <div class="main flex flex-col">
+      <%= render partial: "shared/flash" %>
+      <%= render partial: "shared/navbar" %>
+
+      <div class="px-3 lg:px-0 h-full">
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= render partial: "shared/footer" unless turbo_native_app? %>
+
+    <ninja-keys data-controller="command-palette" hideBreadcrumbs></ninja-keys>
+  </body>
+</html>

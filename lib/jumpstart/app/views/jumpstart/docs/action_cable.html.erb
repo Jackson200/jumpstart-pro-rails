@@ -1,0 +1,14 @@
+<% content_for :section_title, "Action Cable" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Action Cable provides a realtime websocket connection between the browser and your Rails app backed by a Redis pubsub connection.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Authentication</h2>
+    <p class="mb-4">Jumpstart Pro comes with Action Cable connections preconfigured to work with Devise's authentication mechanism called Warden. It will also tag the logs with the User ID for ease of debugging.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Using Action Cable</h2>
+    <p class="mb-4">You can run <code>rails g channel my_channel</code> to create a new Action Cable channel. This will generate the Ruby class and Javascript file for your channel.</p>
+    <p class="mb-4">Check out the <%= link_to "GoRails screencast episodes on Action Cable", "https://gorails.com/episodes/tagged/ActionCable", target: :_blank, class: "text-blue-500" %> and the <%= link_to "Action Cable Rails Guide", "https://edgeguides.rubyonrails.org/action_cable_overview.html", target: :_blank, class: "text-blue-500" %> for more information on how to use Action Cable.</p>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<% content_for :section_title, "Action Text" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Action Text provides rich text fields for your applications where you can upload images, @mention users, and create other types of dynamic attachments.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Using Action Text</h2>
+    <p class="mb-4">Action Text is installed by default in Jumpstart Pro.</p>
+    <p class="mb-4">Rich text fields are extremely easy to add. You can use the <code>rich_text</code> type when generating models and scaffolds and everything will be setup for you.</p>
+
+    <pre><code>rails g scaffold Message body:rich_text</code></pre>
+
+    <p class="mb-4">You can also add a rich text attribute manually by adding <code>has_rich_text :body</code> to your model, add the <code>rich_text_area</code> to your form and permit the attribute in the controller.</p>
+    <p class="mb-4">Action Text does not require any migrations to add fields, so this is all you need to do.</p>
+
+    <p class="mb-4">Check out the <%= link_to "GoRails screencast episodes on Action Text", "https://gorails.com/episodes/tagged/ActionText", target: :_blank, class: "text-blue-500" %> and the <%= link_to "Action Text Rails Guide", "https://edgeguides.rubyonrails.org/action_text_overview.html", target: :_blank, class: "text-blue-500" %> for more information on how to use Action Text.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">User Mentions (@mentions)</h2>
+    <p class="mb-4">We have preinstalled Action Text for you in Jumpstart Pro and added User mentions so you can easily reference users. By default, it will only search users of the current account. You can modify this to search all users depending on your needs.</p>
+    <p class="mb-4">Scaffolds have been modified to automatically enable this feature for <code>rich_text_area</code> fields.</p>
+    <p class="mb-4">You can add it to your own rich_text_area by simply adding the following Stimulus data attributes:</p>
+
+    <pre><code>&lt;%= form.rich_text_area :body, data: { controller: "mentions", mentions_target: "field" } %&gt;</code></pre>
+
+    <p class="mb-4">To disable mentions for a field, simply remove the data attributes.</p>
+  </div>
+</div>

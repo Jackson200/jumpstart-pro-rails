@@ -1,0 +1,42 @@
+# == Schema Information
+#
+# Table name: user_connected_accounts
+#
+#  id                  :bigint           not null, primary key
+#  access_token        :string
+#  access_token_secret :string
+#  auth                :text
+#  expires_at          :datetime
+#  provider            :string
+#  refresh_token       :string
+#  uid                 :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  user_id             :bigint
+#
+# Indexes
+#
+#  index_user_connected_accounts_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  provider: test
+  access_token: abcd1234
+  refresh_token: ABCDEFG
+  expires_at: <%= 1.year.from_now.to_formatted_s(:db) %>
+  uid: one
+
+two:
+  user: one
+  provider: test
+  access_token: abcd1234
+  refresh_token: ABCDEFG
+  expires_at: <%= 1.year.from_now.to_formatted_s(:db) %>
+  uid: two

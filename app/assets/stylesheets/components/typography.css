@@ -1,0 +1,49 @@
+.font-display {
+  font-size: 4rem;
+
+  @apply font-bold leading-tight tracking-tight;
+}
+
+
+h1,
+.h1 {
+  font-size: 2.5rem;
+
+  @apply font-bold leading-tight tracking-tight;
+
+}
+
+h2,
+.h2 {
+  font-size: 2.0rem;
+
+  @apply font-bold leading-tight;
+}
+
+h3,
+.h3 {
+  font-size: 1.5rem;
+
+  @apply font-bold leading-normal;
+}
+
+h4,
+.h4 {
+  font-size: 1.125rem;
+
+  @apply font-bold leading-normal;
+}
+
+h5,
+.h5 {
+  @apply font-bold uppercase tracking-wide text-sm;
+}
+
+.link {
+  @apply text-blue-500;
+
+  &:hover,
+  &:focus {
+    @apply text-blue-600;
+  }
+}

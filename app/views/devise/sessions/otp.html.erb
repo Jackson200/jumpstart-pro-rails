@@ -1,0 +1,16 @@
+<div class="max-w-sm mx-auto mt-16">
+  <h1 class="h3 text-center"><%= t("users.two_factor.header") %></h1>
+
+  <div class="bg-white rounded shadow p-8 mt-8">
+    <%= form_with url: new_user_session_path do |form| %>
+      <div class="form-group">
+        <%= form.label :otp_attempt, "Verification code" %>
+        <%= form.text_field :otp_attempt, autocomplete:"one-time-code", inputmode: "numeric", class: "form-control", autofocus: true %>
+      </div>
+
+      <div>
+        <%= form.submit t('users.two_factor.submit'), class: "btn btn-primary btn-expanded" %>
+      </div>
+    <% end %>
+  </div>
+</div>

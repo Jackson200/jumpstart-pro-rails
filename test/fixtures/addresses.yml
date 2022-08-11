@@ -1,0 +1,53 @@
+# == Schema Information
+#
+# Table name: addresses
+#
+#  id               :bigint           not null, primary key
+#  address_type     :integer
+#  addressable_type :string           not null
+#  city             :string
+#  country          :string
+#  line1            :string
+#  line2            :string
+#  postal_code      :string
+#  state            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  addressable_id   :bigint           not null
+#
+# Indexes
+#
+#  index_addresses_on_addressable  (addressable_type,addressable_id)
+#
+
+one:
+  address_type: 0
+  line1: MyString
+  line2: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  postal_code: MyString
+  addressable: one (Account)
+  # addressable_type: Addressable
+
+two:
+  address_type: 1
+  line1: MyString
+  line2: MyString
+  city: MyString
+  state: MyString
+  country: MyString
+  postal_code: MyString
+  addressable: two
+  addressable_type: Addressable
+
+company_billing_address:
+  address_type: 0
+  line1: 123 Corporate Dr
+  line2: Suite 13
+  city: BigTechValley
+  state: California
+  country: US
+  postal_code: 12345
+  addressable: company (Account)

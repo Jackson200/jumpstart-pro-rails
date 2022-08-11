@@ -1,0 +1,25 @@
+@layer components {
+  .bg-twitter { background: #4099ff; }
+  .bg-facebook { background: #3B5998; }
+  .bg-google_oauth2 { background: #D34836; }
+
+  .text-twitter { color: #4099ff; }
+  .text-facebook { color: #3B5998; }
+  .text-google_oauth2 { color: #D34836; }
+}
+
+.btn-twitter {
+  @apply bg-twitter text-white;
+}
+
+.btn-facebook {
+  @apply bg-facebook text-white;
+}
+
+.btn-github {
+  @apply bg-gray-500 text-white;
+}
+
+.btn-google_oauth2 {
+  @apply bg-google_oauth2 text-white;
+}

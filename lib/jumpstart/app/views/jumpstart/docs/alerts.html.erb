@@ -1,0 +1,91 @@
+<% content_for :section_title, "Alerts & Notices" %>
+
+<div class="mb-10">
+  <h3 class="mb-4">Alerts</h3>
+
+  <%= render "jumpstart/docs/snippet" do %>
+<div class="alert mb-6" role="alert">
+  <div class="flex items-start justify-start">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <h4 class="font-semibold text-sm">General Alert</h4>
+      <p class="leading-normal">Additional text for context goes here</p>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-info mb-6" role="alert">
+  <div class="flex items-start justify-start">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <h4 class="font-semibold text-sm">Info Alert</h4>
+      <p class="leading-normal">Additional text for context goes here</p>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-success mb-6" role="alert">
+  <div class="flex items-start justify-start">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <h4 class="font-semibold text-sm">Success Alert</h4>
+      <p class="leading-normal">Additional text for context goes here</p>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-error mb-6" role="alert">
+  <div class="flex items-start justify-start">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <h4 class="font-semibold text-sm">Error/Danger Alert</h4>
+      <p class="leading-normal">Additional text for context goes here</p>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-warning mb-6" role="alert">
+  <div class="flex items-start justify-start">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-4 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <h4 class="font-semibold text-sm">Warning Alert</h4>
+      <p class="leading-normal">Additional text for context goes here</p>
+    </div>
+  </div>
+</div>
+  <% end %>
+
+  <h3 class="mb-4">Notices</h3>
+
+  <%= render "jumpstart/docs/snippet" do %>
+<div class="notice notice-info mb-6" role="alert">
+  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+  <p class="leading-normal">This is a notice</p>
+</div>
+
+<div class="notice notice-warning mb-6" role="alert">
+  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+  <p class="leading-normal">This is a notice</p>
+</div>
+
+<div class="notice notice-success mb-6" role="alert">
+  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+  <p class="leading-normal">This is a notice</p>
+</div>
+
+<div class="notice notice-error mb-6" role="alert">
+  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+  <p class="leading-normal">This is a notice</p>
+</div>
+  <% end %>
+</div>

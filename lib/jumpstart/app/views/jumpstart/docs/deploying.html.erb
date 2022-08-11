@@ -1,0 +1,63 @@
+<% content_for :section_title, "Deploying" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Deploying Jumpstart Pro is easy. We've even configured a staging environment for you.</p>
+
+<p class="mb-4">You'll need a Redis and PostgreSQL database setup to deploy Jumpstart Pro.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Environments</h2>
+    <p class="mb-4">Jumpstart Pro is preconfigured with two environments for deploying: staging and production.</p>
+    <p class="mb-4">Background workers will be configured to run in all environments so you will have the same experience in development as you will in staging and production.</p>
+    <p class="mb-4">Email providers will only be configured for production by Jumpstart Pro, so you don't accidentally send emails to real users in staging.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Credentials</h2>
+    <p class="mb-4">You will need to take the contents of <code>config/credentials/staging.key</code> or <code>config/credentials/production.key</code> (depending on what env you're deploying) and set the <code>RAILS_MASTER_KEY</code> environment variable to the contents of this file. This will allow staging or production to decrypt your credentials for the correct environment.</code> </p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Deploy to <%= link_to "Hatchbox", "https://hatchbox.io", target: :blank, class: "text-gray-900" %></h2>
+    <p class="mb-4"><%= link_to "Hatchbox.io", "https://hatchbox.io", target: :blank %> is built by the makers of Jumpstart Pro and GoRails. It's a fantastically simple and cheap option for deploying apps to your own servers.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Deploy to Render.com</h2>
+    <p class="mb-4">Jumpstart Pro comes with a render.yaml file that helps Render pre-configure your application.</p>
+    <p class="mb-4">Simply copy this URL and paste it into your browser, then change the GitHub URL to point to your private repository.</p>
+    <pre><code>https://render.com/deploy?repo=https://github.com/excid3/jumpstart-pro</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Deploy to Heroku</h2>
+    <p class="mb-4">Deploying to Heroku is easy. Jumpstart Pro includes a Procfile to help automatically configure your Heroku processes.</p>
+    <div class="mb-4 w-full xl:w-1/2">
+      <div class="embed-container">
+      <iframe src="https://www.youtube.com/embed/alUh4DX3XAw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <h4>Deploy using Heroku Deploy Button</h4>
+    <p class="mb-4">Jumpstart Pro comes with an app.json file that helps Heroku pre-configure your application if you use GitHub to host your Jumpstart Pro repo.</p>
+    <p class="mb-4">Heroku will use your connected GitHub account to access the private repo and find the app.json to pre-configure your new app. You can read more about the <%= link_to "Heroku Deploy Button for private repos", "https://devcenter.heroku.com/articles/heroku-button#private-github-repos", target: :_blank %> here.</p>
+    <p class="mb-4">Simply copy this URL and paste it into your browser, then change the GitHub URL to point to your private repository.</p>
+    <pre><code>https://dashboard.heroku.com/new?template=https://github.com/excid3/jumpstart-pro</code></pre>
+
+    <h4>Deploy using Heroku CLI</h4>
+    <p class="mb-4">First, you'll need to <%= link_to "install the Heroku CLI", "http://toolbelt.heroku.com/", target: :_blank %> and login with <code>heroku login</code></p>
+    <p class="mb-4">Now you can create a Heroku app by running <code>heroku create myapp</code></p>
+
+    <p class="mb-4">We also need to tell Heroku which buildpacks to use:</p>
+    <pre><code>heroku buildpacks:set heroku/ruby
+heroku buildpacks:add --index 1 heroku/nodejs</code></pre>
+
+    <p class="mb-4">You'll need to setup <%= link_to "PostgreSQL", "https://elements.heroku.com/addons/heroku-postgresql", target: :_blank %> and <%= link_to "Redis", "https://elements.heroku.com/addons/heroku-redis", target: :_blank %> addons to run your app.</p>
+    <pre><code>heroku addons:create heroku-postgresql:hobby-dev
+heroku addons:create heroku-redis:hobby-dev</code></pre>
+
+    <p class="mb-4">Afterwards, you need to add the <code>RAILS_MASTER_KEY</code> environment variable and set it equal to the key inside <code>config/credentials/production.key</code>.</p>
+    <p class="mb-4">Then you can deploy your code to Heroku and run migrations.</p>
+    <pre><code>git push heroku master
+heroku run rails db:migrate</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Docker</h2>
+    <p class="mb-4">We provide a sample Dockerfile and docker-compose.yml for you in case you'd like to deploy your application using Docker.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Creating An Admin User</h2>
+    <p class="mb-4">To create an admin user in production, you can either generate one using <code>db/seeds.rb</code> or run the following code in the rails console in production.</p>
+    <pre><code>User.create name: "Steve Jobs", email: "steve@apple.com", password: "password", password_confirmation: "password", admin: true, terms_of_service: true</code></pre>
+  </div>
+</div>

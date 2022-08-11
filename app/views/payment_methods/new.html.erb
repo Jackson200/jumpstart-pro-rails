@@ -1,0 +1,26 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="w-full mb-4 lg:w-1/4 lg:p-4">
+    <%= render partial: "shared/account_navbar" %>
+  </div>
+
+  <div class="w-full lg:w-3/4 lg:p-4">
+    <div class="lg:p-10 p-4 bg-white rounded-lg border border-gray-200">
+      <h1 class="h3 mb-2">
+        <%= link_to t(".billing"), subscriptions_path, class: "text-primary hover:underline" %>
+        <svg class="inline-block flex-shrink-0 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+        <%= t(".payment_details") %>
+      </h1>
+
+      <%# Show form if current processor exists or show all if no processor set %>
+      <%= render 'payment_methods/forms/fake_processor' if @payment_processor&.fake_processor? %>
+      <%= render 'payment_methods/forms/stripe', client_secret: @client_secret if show_payment_processor?(:stripe) %>
+      <%= render 'payment_methods/forms/braintree' if show_payment_processor?(:braintree) %>
+      <%= render 'payment_methods/forms/paypal' if show_payment_processor?(:paypal) %>
+
+      <%# Paddle can only update card when on a subscription %>
+      <%= render 'payment_methods/forms/paddle', subscription: @payment_processor.subscription if show_paddle_payment_method_form?(@payment_processor) %>
+    </div>
+  </div>
+</div>

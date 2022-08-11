@@ -1,0 +1,19 @@
+<% content_for :section_title, "Branding" %>
+
+<div class="mb-10">
+  <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart includes branding assets that are easily replaceable with your own logo.</p>
+
+  <h3 class="mb-2">Logo SVG</h3>
+  <p class="mb-4">The Jumpstart placeholder is located in <code>app/assets/images/logo.svg</code> and you can simply replace this file to use your own logo.</p>
+  <p class="mb-4">We recommend using an SVG logo for crisp rendering at any size. Logos look best at 24px tall.</p>
+
+  <p class="mb-4">By default, we'll render the logo.svg in the navbar.</p>
+  <%= render_svg "logo", styles: "fill-current text-gray-700 hover:text-gray-800" %>
+
+  <p class="my-4">And mark.svg in the footer:</p>
+  <%= render_svg "mark", styles: "fill-current text-gray-700 hover:text-gray-800" %>
+
+  <h3 class="mb-2 mt-4">Favicons</h3>
+  <p class="mb-4">The Jumpstart favicon placeholders are located in <code>public</code> and you can simply replace these files to use your own logos.</p>
+  <p class="mb-4">We recommend using <%= link_to "RealFaviconGenerator", "https://realfavicongenerator.net/", target: :_blank %> to generate your Favicon from an SVG. Simply extract the generated images to the public folder to replace the favicon.</p>
+</div>

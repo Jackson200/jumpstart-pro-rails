@@ -1,0 +1,17 @@
+<%= form_with url: local_assigns.fetch(:url, payment_methods_path),
+  method: :post,
+  class: "hidden mt-4",
+  data: {
+    controller: "braintree",
+    braintree_client_token: Pay.braintree_gateway.client_token.generate,
+    braintree_env: braintree_env,
+    braintree_target: "form",
+    toggle_target: "toggleable",
+  } do |f| %>
+
+  <%= tag.div nil, data: { braintree_target: "dropin" } %>
+
+  <%= f.button t(".button"), class: "btn btn-primary", data: { action: "click->braintree#submit", disable_with: disable_with(t("processing")) } %>
+
+  <%= f.hidden_field :processor, value: :braintree %>
+<% end %>

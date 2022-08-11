@@ -1,0 +1,5 @@
+<div class="form-group">
+  <label>Background Job Processor</label>
+  <p class="form-hint">Background jobs are used for sending emails, broadcasting events, and more. We recommend using Sidekiq.</p>
+  <%= f.select :background_job_processor, Jumpstart::JobProcessor::AVAILABLE_PROVIDERS, {}, { class: "form-control" } %>
+</div>

@@ -1,0 +1,6 @@
+<% cache ["mention", user] do %>
+  <span>
+    <%= image_tag avatar_url_for(user), height: 14, width: 14, class: "inline-block rounded-full" %>
+    <%= user.name %>
+  </span>
+<% end %>

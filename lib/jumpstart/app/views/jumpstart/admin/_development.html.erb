@@ -1,0 +1,10 @@
+<h4>Solargraph</h4>
+
+<div class="form-group">
+  <p>Checking this option will install <%= link_to "Solargraph", "https://solargraph.org/guides/rails", target: :_blank %> Rails support to provide Intellisense features in your editor.</p>
+
+  <div class="custom-control custom-checkbox">
+    <%= f.check_box :solargraph, value: true, checked: Jumpstart.config.solargraph?, class: "form-checkbox", id: "solargraph" %>
+    <%= label_tag "solargraph", "Enable rails support and install solargraph-rails", class: "inline-block" %>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<%= form_with url: local_assigns.fetch(:url, subscriptions_path),
+  method: local_assigns.fetch(:method, :post),
+  data: {
+    controller: "paypal",
+    paypal_client_token: Pay.braintree_gateway.client_token.generate,
+    paypal_env: braintree_env,
+    paypal_target: "form",
+  } do |f| %>
+
+  <div class="my-8 text-center">
+    <%= tag.div nil, data: { paypal_target: "button" } %>
+  </div>
+
+  <%= f.hidden_field :plan, value: @plan.id %>
+<% end %>

@@ -1,0 +1,12 @@
+pre {
+  @apply text-sm mb-6;
+
+  code.hljs {
+    @apply rounded p-4;
+  }
+
+}
+
+code {
+  @apply text-red-500 text-sm;
+}

@@ -1,0 +1,28 @@
+<% content_for :section_title, "Email" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro provides easy configuration for transaction email providers.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Transactional Email Services</h2>
+    <p class="mb-4">We have looked up the configurations for several different transactional email providers so you don't have to waste time fiddling with configs.</p>
+
+    <ul class="mb-4 list-disc list-inside">
+      <li>Amazon SES</li>
+      <li>Mailgun</li>
+      <li>Mailjet</li>
+      <li>Mandrill</li>
+      <li>OhMySMTP</li>
+      <li>Postmark</li>
+      <li>Sendgrid</li>
+      <li>SendInBlue</li>
+      <li>SparkPost</li>
+    </ul>
+
+    <p class="mb-4">To add credentials for your transactional email provider, check out <%= link_to "the Credentials section", credentials_docs_path, target: :_blank, class: "text-blue-500 underline" %> in the docs.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Default From Email</h2>
+    <p class="mb-4">We'll also configure your Rails app's default from email address for transactional emails sent by your app. This could be as simple as <code>noreply@example.com</code> or your support email address.</p>
+    <p class="mb-4">You can also include a name if you would like a pretty name in your emails such as <code>My App &lt;noreply@example.com&gt;</code></p>
+  </div>
+</div>

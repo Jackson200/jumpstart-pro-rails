@@ -1,0 +1,28 @@
+<% content_for :section_title, "Active Storage" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Active Storage provides file uploads for Rails applications and is the storage mechanism for Action Text, Action Mailbox, and more.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Using Active Storage</h2>
+    <p class="mb-4">Active Storage is installed by default in Jumpstart Pro.</p>
+    <p class="mb-4">Check out the <%= link_to "GoRails screencast episodes on Active Storage", "https://gorails.com/episodes/tagged/ActiveStorage", target: :_blank, class: "text-blue-500" %> and the <%= link_to "Active Storage Rails Guide", "https://edgeguides.rubyonrails.org/active_storage_overview.html", target: :_blank, class: "text-blue-500" %> for more information on how to use Active Storage.</p>
+
+    <p class="mb-4">For production, we <strong>strongly</strong> recommend using a CDN for serving files. Active Storage processes images through Rails which can add unncessary load to your Rails application and slow down your app if you don't have a CDN in production.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Direct Uploads</h2>
+    <p class="mb-4">Direct uploads with Active Storage are enabled by default. To enable the Javascript on a file field, simply add <code>direct_upload: true</code>.</p>
+
+    <pre><code>&lt;%= form.file_field :attachments, multiple: true, direct_upload: true %&gt;</code></pre>
+
+    <p class="mb-4">The Trix editor is also preconfigured to use direct uploads when uploading attachments.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">User Avatars</h2>
+    <p class="mb-4">Users have default avatars using Gravatar, but they may override this by uploading their own avatar. These avatars are uploaded and processed using Active Storage.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Orphaned Uploads</h2>
+    <p class="mb-4">Sometimes a user might upload a file but close the tab leaving an orphaned file in storage. To clean these up, we need to run a cron job regularly to purge any unattached blobs from ActiveStorage.</p>
+    <p class="mb-4">Jumpstart Pro comes with a Rake task you can run nightly to purge any orphaned, unattached blobs. Simply add this to cron or as a scheduled job:</p>
+    <pre><code>rails active_storage:cleanup</code></pre>
+  </div>
+</div>

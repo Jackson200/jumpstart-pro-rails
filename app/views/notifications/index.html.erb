@@ -1,0 +1,19 @@
+<div class="container mx-auto">
+  <h1 class="h2 my-6 text-center"><%= t(".title") %></h1>
+</div>
+
+<div class="bg-white rounded-lg border border-gray-200 sm:rounded-md sm:max-w-2xl sm:mx-auto">
+  <ul>
+    <%= render partial: "notifications/notification", collection: @notifications, cached: true %>
+  </ul>
+
+  <% if @notifications.empty? %>
+    <div class="px-4 py-3 text-gray-700 text-center"><%= t(".empty_placeholder") %></div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="text-center mt-8">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

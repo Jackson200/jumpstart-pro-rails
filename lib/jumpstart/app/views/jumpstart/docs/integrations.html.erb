@@ -1,0 +1,89 @@
+<% content_for :section_title, "Integrations" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro has support for integrating your app with several third party services.</p>
+
+    <h2 class="pb-3 my-6 border-b border-gray-400">Error & Performance Monitoring</h2>
+    <p class="mb-4">Jumpstart can configure these services for you for reporting errors and performance in production.</p>
+
+    <div class="mb-2">
+      <%= link_to "AirBrake", "https://airbrake.io", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Error and performance monitoring</span>
+    </div>
+
+    <div class="mb-2">
+      <%= link_to "AppSignal", "https://appsignal.com/r/f422858ba7", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Error and performance monitoring</span>
+    </div>
+
+    <div class="mb-2">
+      <%= link_to "Honeybadger", "https://www.honeybadger.io/?affiliate=vq7ujA", target: :_blank %>
+      <%= badge "Recommended", class: "ml-3" %>
+      <span class="ml-3 text-sm text-gray-700">Error and uptime monitoring</span>
+    </div>
+
+    <div class="mb-2">
+      <%= link_to "Rollbar", "https://rollbar.com", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Error monitoring</span>
+    </div>
+
+    <div class="mb-2">
+      <%= link_to "Scout APM", "https://scoutapm.com", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Performance monitoring</span>
+    </div>
+
+    <div class="mb-2">
+      <%= link_to "Sentry", "https://sentry.io", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Error monitoring</span>
+    </div>
+
+    <div class="mb-2">
+      <%= link_to "Skylight", "https://www.skylight.io/r/rIsVdwGGkNQs", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Performance monitoring</span>
+    </div>
+
+    <h2 class="pb-3 my-6 border-b border-gray-400">Marketing & Support</h2>
+    <p class="mb-4">Jumpstart can configure these services for you so you can keep reach your customers.</p>
+
+    <div class="mb-4">
+      <%= link_to "ConvertKit", "https://app.convertkit.com/users/signup?plan=free-limited&referral_token=0e2cf99c-d0f7-48d4-b497-3664e7dc90c4", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Email marketing</span>
+      <span class="ml-3 text-sm text-gray-700"><%= link_to "Gem", "https://github.com/excid3/convertkit-ruby", target: :_blank %></span>
+      <%= badge "Recommended", class: "ml-3" %>
+      <span class="ml-3 text-sm text-gray-700">Get 100 subscribers for free using our link!</span>
+    </div>
+
+    <div class="mb-4">
+      <%= link_to "Drip", "https://getdrip.com", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Email marketing</span>
+      <span class="ml-3 text-sm text-gray-700"><%= link_to "Gem", "https://github.com/DripEmail/drip-ruby", target: :_blank %></span>
+    </div>
+
+    <div class="mb-4">
+      <%= link_to "Intercom", "https://intercom.io", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Customer engagement and support</span>
+      <span class="ml-3 text-sm text-gray-700"><%= link_to "Gem", "https://github.com/intercom/intercom-rails", target: :_blank %></span>
+    </div>
+
+    <div class="mb-4">
+      <%= link_to "MailChimp", "http://eepurl.com/BG875", target: :_blank %>
+      <span class="ml-3 text-sm text-gray-700">Email marketing</span>
+      <span class="ml-3 text-sm text-gray-700"><%= link_to "Gem", "https://github.com/amro/gibbon", target: :_blank %></span>
+    </div>
+
+    <p class="mb-4">Jumpstart auto-configures API clients for Convertkit, Drip, and Mailchimp. You can use <code>Jumpstart::Clients</code> to access the clients.</p>
+    <p>Here are some examples of how you can subscribe your users to mailing lists:</p>
+    <pre><code># Add a subscriber to ConvertKit
+Jumpstart::Clients.convertkit.add_subscriber_to_form(form_id, email, options={})
+Jumpstart::Clients.convertkit.add_subscriber_to_sequence(sequence_id, email, options={})
+Jumpstart::Clients.convertkit.add_subscriber_to_tag(tag_id, email, options={})
+
+# Add a subscriber to Drip
+Jumpstart::Clients.drip.create_or_update_subscriber(email, options={})
+
+# Add a subscriber to Mailchimp
+Jumpstart::Clients.mailchimp.lists("<LIST ID>").members.create(body: {email_address: "foo@bar.com", status: "subscribed", merge_fields: {FNAME: "First Name", LNAME: "Last Name"}})
+    </code></pre>
+  </div>
+</div>

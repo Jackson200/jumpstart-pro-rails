@@ -1,0 +1,530 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+#
+# https://mikerogers.io/2016/01/10/i18n-rails-internationalisation-i18n-cheatsheet.html
+
+en:
+  are_you_sure: "Are you sure?"
+  back: "Back"
+  cancel: "Cancel"
+  create_an_account_first: "Please create an account first."
+  delete: "Delete"
+  edit: "Edit"
+  view: "View"
+  must_be_an_admin: "You must be an admin to do that."
+  processing: "Processing..."
+  something_went_wrong: "Something went wrong"
+  unauthorized: "You are not authorized to perform this action."
+
+  account_invitations_mailer:
+    invite:
+      subject: "%{inviter} invited you to %{account}"
+      header_html: "%{inviter} has invited you to collaborate on <strong>%{account}</strong>"
+      description_html: "You can %{link} this invitation."
+      accept_or_decline: "accept or decline"
+      view_invitation: "View invitation"
+
+  account_invitations:
+    invite_user: "Invite User"
+    authenticate: "Please login or create an account to accept this invitation"
+    not_found: "Whoops, we weren't able to find this invitation. Check with your account admin for a new invitation."
+    show:
+      invited_you_to_join_html: "<strong>%{inviter}</strong> invited you to join <strong>%{account}</strong>"
+      accept: "Accept Invitation"
+      decline: "Decline"
+
+  account_users:
+    updated: "Account member was successfully updated."
+    destroyed: "Account member was successfully removed."
+    edit:
+      description: "Editing account permissions for %{user}."
+
+  accounts:
+    index:
+      title: "Accounts"
+      create: "Create an Account"
+      switch: "Switch"
+      current: "Current Account"
+    show:
+      invite: "Invite A User"
+      edit: "Edit"
+      edit_account: "Edit Account"
+      copy_link: "Copy link"
+      switch: "Switch"
+      personal_team_description: "Your personal account is private. Create a new account to share with your team."
+    new:
+      title: "New Account"
+      description: "Collaborate and share with others by creating an account."
+    edit:
+      title: "Edit"
+    created: "Account was successfully created."
+    created_and_switch_html: "Account was successfully created. <a class=\"underline\" href=\"%{link}\">Switch account</a>"
+    updated: "Account was successfully updated."
+    destroyed: "Account was successfully destroyed."
+    admin_required: "Only account admins are allowed to do that."
+    personal:
+      cannot_delete: "You cannot delete your personal account."
+    users: "Users"
+    roles: "Roles"
+    account_invitations:
+      updated: "Invitation was successfully updated."
+      destroyed: "Invitation was successfully removed."
+      new:
+        title: "Invite User"
+        description: "Invite a user to join your account."
+        send: "Send invitation"
+        cancel: "Cancel"
+      edit:
+        title: "Edit Invitation"
+        description: "Edit or cancel invitation."
+        back: "Back"
+        update: "Update invitation"
+        destroy: "Cancel Invite"
+    transfers:
+      form:
+        title: "Transfer ownership"
+        description: "Transfer ownership of this account to another user."
+        transfer: "Transfer"
+        are_you_sure: "Are you sure you want to transfer this account?"
+      update:
+        not_allowed: "You are not allowed to do that."
+        invalid: "Please choose a member of the account to transfer ownership."
+        success: "Account transferred successfully."
+
+  announcements:
+    index:
+      title: "What's New"
+      description: "New updates and improvements to %{name}"
+      empty_placeholder: "Exciting stuff coming very soon!"
+
+  api_tokens:
+    created: "Successfully created API token"
+    updated: "Successfully updated API token"
+    destroyed: "Your API token has been revoked"
+    all: "All API Tokens"
+    default: "Default"
+    app: "App"
+
+    index:
+      title: "API Tokens"
+      create: "Create an API Token"
+      view: "View"
+    new:
+      title: "New API Token"
+    edit:
+      title: "Edit"
+    show:
+      edit: "Edit Token"
+      click_to_copy: "Click to copy"
+      revoke: "Revoke Token"
+      confirm: "Are you sure you want to revoke this API token?"
+      auth_header: "Authenticate using Header"
+
+  payment_methods:
+    new:
+      billing: "Billing"
+      payment_details: "Payment Details"
+
+    create:
+      updated: "Your payment method was updated successfully."
+
+    forms:
+      braintree:
+        button: "Update Card"
+      fake_processor:
+        message: "You have free access and don't need to add a payment method."
+      stripe:
+        credit_or_debit_card: "Credit or Debit Card"
+        button: "Update Card"
+
+  dashboard:
+    show:
+      title: "Dashboard"
+
+  payments:
+    success: "Thanks for subscribing!"
+    show:
+      successful: "Payment Successful"
+      successful_description: "This payment was already successfully confirmed."
+      cancelled: "Payment Cancelled"
+      cancelled_description: "This payment was cancelled."
+      confirm: "Confirm your %{amount} payment"
+      confirm_description: "Extra confirmation is needed to process your payment. Please confirm your payment by filling out your payment details below."
+      back: "Go back"
+      confirm_button: "Confirm Payment"
+
+  static:
+    no_plans: "There are no pricing plans configured."
+    pricing:
+      heading: "Pricing Plans"
+      subhead: "Simple, straightforward pricing to get your online business up and running"
+      monthly: "Monthly"
+      yearly: "Yearly"
+
+    about:
+      title: "About Us"
+    privacy:
+      title: "Privacy Policy"
+    terms:
+      title: "Terms Of Service"
+
+  shared:
+    footer:
+      about: "About Us"
+      privacy: "Privacy Policy"
+      terms: "Terms of Service"
+    account_navbar:
+      profile: "Profile"
+      password: "Password"
+      connected_accounts: "Connected Accounts"
+      billing: "Billing"
+      accounts: "Accounts"
+      api_tokens: "API"
+    flash:
+      confirm_payment: "Confirm your latest payment"
+    navbar:
+      profile: "Profile"
+      password: "Password"
+      connected_accounts: "Connected Accounts"
+      billing: "Billing"
+      api_tokens: "API"
+      accounts: "Accounts"
+      admin: "Admin"
+      dashboard: "Dashboard"
+      sign_out: "Sign Out"
+      log_in: "Log In"
+      sign_up: "Sign Up"
+    oauth:
+      apple: "Apple"
+      developer: "Developer"
+      facebook: "Facebook"
+      github: "GitHub"
+      gitlab: "GitLab"
+      google_oauth2: "Google"
+      stripe: "Stripe"
+      twitter: "Twitter"
+    right_nav:
+      pricing: "Pricing"
+      announcements: "What's New"
+    scaffold:
+      edit:
+        title: "Edit %{model}"
+      new:
+        title: "New %{model}"
+      actions: "Actions"
+      view: "View"
+
+  subscriptions:
+    created: "Thanks for subscribing!"
+    resumed: "Your subscription has been resumed."
+    info_updated: "Extra billing info saved sucessfully."
+
+    plan:
+      change_plan: "Change Plan"
+      current_plan: "Current plan"
+      get_started: "Get Started"
+      start_trial: "Start Trial"
+      processing: "Processing..."
+
+    index:
+      title: "Billing"
+      contact_admin: "Contact an admin to change the %{account} subscription."
+      subscriptions: "Current plan"
+      not_subscribed: "You are not currently subscribed."
+      choose_plan: "Choose a plan"
+
+    new:
+      title: "Checkout"
+      account: "Account"
+      billing_address: "Billing Address"
+      payment_method: "Payment Method"
+      change: "Change"
+      subscribe: "Subscribe"
+      start_trial: "Start trial"
+      processing: "Processing..."
+      help: "Need any help?"
+      contact_html: "Don't hesitate to %{link}."
+      renews_html: "Automatically renews<br/>after 1 %{interval}"
+      contact_support: "contact support"
+      contact_subject: "I have a question about %{product}"
+      testimonial: "%{product} has made my life so much easier. I can't recommend it enough."
+      subtotal: "Subtotal"
+      tax: "Tax"
+      total: "Total due today"
+
+    edit:
+      trial_ends: "Your trial ends in %{days}."
+      title: "Change Your Plan"
+      description: "Simple, straightforward pricing to get your online business up and running"
+      monthly: "Monthly"
+      yearly: "Yearly"
+      current_plan: "Current Plan"
+      processing: "Processing..."
+
+    update:
+      success: "Your plan has been updated successfully."
+
+    subscription:
+      cancel_plan: "Cancel plan"
+      canceled_on_trial: "After your trial ends on %{date}, this plan will be canceled automatically."
+      title: "Current Plans"
+      free_trial: "Free Trial"
+      free_trial_ends: "Your trial ends on %{date}."
+      trial: "After your trial ends on %{date}, this plan will continue automatically."
+      quantity: "Quantity: %{quantity} at %{price} each"
+      resume: "Resume plan"
+      change_plan: "Change plan"
+      pause: "Pause plan"
+      canceled: "Canceled"
+      incomplete: "Incomplete"
+      confirm_payment: "Confirm payment"
+      ends_at: "Your plan will be canceled on %{date}."
+      paused_at: "Your plan will be paused on %{date}."
+      paused: "Your plan is paused."
+      view_usage: "View usage"
+
+    payment_method:
+      payment_method: "Payment Method"
+      no_payment_method: "You have no payment method on file."
+      update_payment_method: "Update payment method"
+
+    billing_address:
+      billing_address: "Billing Address"
+      add_billing_address: "Add billing address"
+      created: "Your billing address was added successfully."
+      update_billing_address: "Update billing address"
+      updated: "Your billing address was updated successfully."
+      no_billing_address: "You have no billing address on file."
+      destroyed: "Your billing address has been removed successfully."
+
+    billing_addresses:
+      show:
+        tax_may_apply: "Tax may apply."
+
+    billing_info:
+      extra_billing_info: "Extra Billing Information"
+      additional_information: "Add any additional information to all of your receipts such as your VAT ID, full business name, and address."
+      save_info: "Save information"
+      saving: "Saving..."
+      add_info: "Add information"
+
+    charges:
+      title: "Billing History"
+      date: "Date"
+      amount: "Amount"
+      payment_method: "Payment Method"
+      receipt: "Receipt"
+      view: "View"
+      empty: "No billing history."
+
+    pauses:
+      show:
+        title: "Pause your plan"
+        description: "You can pause your subscription and resume at a later time."
+        note: "The pause takes effect on the first day of your next billing cycle. You will not be charged while your account is paused."
+        back: "Back to Billing"
+        button: "Pause plan"
+        processing: "Pausing..."
+
+      update:
+        resumed: "Your subscription has been paused."
+
+    resumes:
+      show:
+        title: "Resume your plan"
+        resume: "This plan will no longer be canceled and will automatically renew."
+        quantity: "Quantity: %{quantity} at %{price} each"
+        back: "Back to Billing"
+        button: "Resume plan"
+        processing: "Resuming..."
+
+      update:
+        resumed: "Your subscription has been resumed."
+
+    cancels:
+      show:
+        title: "Cancel your plan"
+        description: "You can cancel anytime, but you'll lose access to %{product}."
+        help_html: "Need to talk to someone? %{link} -- we'd love to help."
+        contact_us: "Contact us"
+        subject: "Question about %{product}"
+        quantity: "Quantity: %{quantity} at %{price} each"
+        active_until: "Your plan will be canceled, but is still available until the end of your billing period."
+        resume: "If you change your mind, you can resume your subscription."
+        button: "Cancel plan"
+        back: "Back to Billing"
+        processing: "Cancelling..."
+
+      destroy:
+        resumed: "Your subscription has been canceled."
+
+    upcomings:
+      show:
+        title: "Upcoming Invoice"
+        description: "The current costs for your usage this billing period."
+        line_items:
+          description: "Description"
+          quantity: "Quantity"
+          unit_price: "Unit Price"
+          total: "Total"
+        back: "Back to Billing"
+
+    forms:
+      stripe:
+        credit_or_debit_card: "Credit or debit card"
+
+  account:
+    passwords:
+      updated: "Your password was changed successfully."
+      edit:
+        update_password: "Update Password"
+        update: "Update"
+        two_factor:
+          header: "Two-factor Authentication"
+          description: "When you login, you will be required to enter a one-time code along to one of your devices."
+          enable: "Enable two-factor authentication"
+          disable: "Disable two-factor authentication"
+
+  users:
+    avatar:
+      upload: "Upload Avatar"
+    connected_accounts:
+      index:
+        title: "Connected Accounts"
+        description: "Connecting your social media accounts makes logging in easier."
+        remove: "Remove"
+        redirecting: "Redirecting..."
+        none: "You don't have any connected accounts."
+    omniauth_callbacks:
+      account_exists: "We already have an account with this email. Login with your previous account before connecting this one."
+    sessions:
+      create:
+        incorrect_verification_code: "Incorrect verification code"
+    sudo:
+      header: "Confirm password to continue"
+      submit: "Confirm password"
+      forgot_password: "Forgot password?"
+      invalid_password: "Invalid password"
+    two_factor:
+      disabled: "Two-factor authentication is now disabled"
+      enabled: "Two-factor authentication was enabled successfully"
+      header: "Two-factor authentication"
+      submit: "Continue"
+      backup_codes:
+        header: "Backup Codes"
+        description: "Recovery codes are used to access your account in the event you cannot receive two-factor authentication codes."
+        warning: "Download, print, or copy your recovery codes before continuing."
+        save_codes: "Treat your recovery codes with the same level of attention as you would your password!"
+        cancel: "Cancel"
+        next: "Next"
+      verify:
+        header: "Scan this barcode with your app."
+        subheader: "Scan the image above with the two-factor authentication app on your phone."
+        instructions_1_html: "Install Authy: %{ios} or %{android}"
+        instructions_2: "In the app, select \"Add account\""
+        instructions_3: "Choose \"Scan QR Code\""
+        verify_header: "Enter the six-digit code from the application"
+        verify_description: "After scanning the barcode image, the app will display a code that you can enter below."
+        cancel: "Cancel"
+        verify: "Verify"
+
+  layouts:
+    mailer:
+      copyright_html: "Copyright &copy; %{year}, All rights reserved."
+      mailing_address: "Our mailing address is:"
+      view_in_browser: "View this in your browser"
+      unsubscribe: "Unsubscribe from this list"
+      preferences: "Update subscription preferences"
+
+  notifications:
+    index:
+      title: "Notifications"
+      empty_placeholder: "Nothing to see here — yet."
+    invite_accepted: "%{user} accepted your invitation."
+    account_transferred: "%{previous_owner} made you owner of the %{account} account."
+    empty: "Nothing to see here — yet."
+    empty_description: "We'll let you know when you have new notifications."
+
+  activerecord:
+    attributes:
+      api_token:
+        last_used_at: "Last Used"
+        created_at: "Created"
+      account:
+        name_on_card: "Name on Card"
+
+    errors:
+      models:
+        account:
+          attributes:
+            domain:
+              reserved: "%{value} is reserved."
+            subdomain:
+              reserved: "%{value} is reserved."
+              format: "must be at least 2 characters and alphanumeric"
+        account_invitation:
+          attributes:
+            email:
+              invited: "has already been invited"
+        account_user:
+          attributes:
+            admin:
+              cannot_be_removed: "role cannot be removed for the account owner"
+
+  errors:
+    messages:
+      image_format_not_supported: "image format not supported"
+
+  helpers:
+    label:
+      country: "Country or region"
+      account:
+        name: "Account Name"
+      user:
+        name: "Full name"
+
+    placeholder:
+      name_on_card: "Full name"
+      account_invitation:
+        name: "Full name"
+        email: "example@domain.com"
+      account:
+        name: "Account Name"
+        domain: "example.com"
+        subdomain: "example"
+        name_on_card: "Full Name"
+        extra_billing_info: "VAT ID, Business name, address, etc..."
+      api_token:
+        name: "Token Name"
+      user:
+        name: "Steve Jobs"
+        email: "you@example.com"
+        password: "password"

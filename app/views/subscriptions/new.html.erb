@@ -1,0 +1,115 @@
+<nav class="p-4 border-b border-gray-200">
+  <%= link_to root_path do %>
+    <%= render_svg "logo", styles: "inline-block fill-current text-gray-700 hover:text-gray-800" %>
+    <span class="sr-only"><%= Jumpstart.config.application_name %></span>
+  <% end %>
+</nav>
+
+<div class="p-4 max-w-6xl mx-auto grid lg:grid-cols-2 lg:gap-48 lg:py-24">
+  <div>
+    <div class="flex justify-center mb-4 lg:justify-start">
+      <% if @plan.has_trial? %>
+        <div>
+          <h1 class="font-semibold text-lg text-gray-500">Try <%= @plan.name %></h1>
+          <h3 class="my-1 font-bold text-3xl"><%= @plan.trial_period_days %> days free</h3>
+          <p class="font-medium text-gray-500">Then <span id="recurringTotal"><%= @plan.amount_with_currency %></span> per <%= @plan.interval %></p>
+        </div>
+
+      <% else %>
+        <div>
+          <h1 class="font-semibold text-lg text-gray-500">Subscribe to <%= @plan.name %></h1>
+
+          <div class="flex items-center">
+            <h3 id="recurringTotal" class="my-1 font-bold text-4xl"><%= @plan.amount_with_currency %></h3>
+
+            <div class="ml-2 font-medium text-sm text-gray-500 leading-none">
+              <% if @plan.unit? %>
+                <div>per <%= @plan.unit %></div>
+                <div>per <%= @plan.interval %></div>
+              <% else %>
+                <div>per</div>
+                <div><%= @plan.interval %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @plan.taxed? && @stripe_invoice %>
+      <div class="flex justify-between mb-4 text-sm font-medium">
+        <div><%= t(".subtotal") %></div>
+        <div><%= Pay::Currency.format(@stripe_invoice.subtotal, currency: @stripe_invoice.currency) %></div>
+      </div>
+
+      <hr class="mb-4" />
+
+      <div class="flex justify-between mb-4 text-sm text-gray-700">
+        <% @stripe_invoice.total_tax_amounts.each do |tax| %>
+          <div>
+            <%= tax.tax_rate.jurisdiction %>
+            <%= tax.tax_rate.display_name %>
+            (<%= tax.tax_rate.percentage %>%)
+          </div>
+          <div><%= Pay::Currency.format(tax.amount, currency: @stripe_invoice.currency) %></div>
+        <% end %>
+      </div>
+
+      <hr class="mb-4" />
+
+      <div class="flex justify-between mb-4 text-sm font-medium">
+        <div><%= t(".total") %></div>
+        <div><%= Pay::Currency.format(@stripe_invoice.total, currency: @stripe_invoice.currency) %></div>
+      </div>
+    <% end %>
+
+    <div class="hidden flex justify-center mb-4 lg:block">
+      <div>
+        <% @plan.features.each do |plan_feature| %>
+          <div class="flex mb-2 text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mr-2 text-blue-500 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <div><%= plan_feature %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex justify-center mb-4">
+      <div class="hidden lg:block">
+        <hr class="my-8 border-b border-gray-300" />
+
+        <blockquote class="sm:flex lg:block">
+          <p class="text-lg text-gray-600"><%= t(".testimonial", product: Jumpstart.config.application_name) %></p>
+          <cite class="mt-4 block font-semibold not-italic text-gray-900">
+            <div class="flex items-center">
+              <img class="block h-8 rounded-full mx-auto mb-4 sm:mb-0 sm:mr-4 sm:ml-0" src="https://avatars1.githubusercontent.com/u/67093?s=40&v=4" alt="">
+              <p class="font-medium leading-tight">Chris Oliver</p>
+            </div>
+          </cite>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h1 class="hidden h3 mb-4 lg:block"><%= t(".title") %></h1>
+
+    <h5 id="billing-address" class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t(".account") %></h5>
+    <div class="flex items-center mb-8">
+      <%= account_avatar current_account, class: "h-10 w-10 rounded-full mr-4" %>
+      <h4><%= current_account.name %></h4>
+    </div>
+
+    <%= render partial: "subscriptions/payment_form" %>
+
+    <div class="text-sm text-center mt-8">
+      <%= render_svg "icons/question", styles: "fill-current text-gray-500 w-4 h-4 inline-block" %>
+      <%= t(".help") %>
+      <span class="text-gray-600">
+        <%= t(".contact_html", link: mail_to(Jumpstart.config.support_email, t(".contact_support"), subject: t(".contact_subject", product: Jumpstart.config.application_name), class: "text-gray-800 underline")) %>
+      </span>
+    </div>
+  </div>
+</div>

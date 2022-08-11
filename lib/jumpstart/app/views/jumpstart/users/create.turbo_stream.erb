@@ -1,0 +1,7 @@
+<%# Reset modal %>
+<%= turbo_stream.replace "admin_user_modal", partial: "jumpstart/admin/admin_user_modal", locals: { user: User.new } %>
+
+<%# Append new user %>
+<%= turbo_stream.append "admin_users", partial: "jumpstart/users/user", locals: { user: @user } %>
+
+<%= turbo_stream.replace "flash", tag.div(sanitize(@notice), class: "alert alert-info") %>

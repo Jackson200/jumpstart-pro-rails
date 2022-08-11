@@ -1,0 +1,28 @@
+<% content_for :section_title, "Announcements" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Announcements are a way for you to notify users of new features, changes, and improvements you've made to your product.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Viewing Announcements</h2>
+    <p class="mb-4">Announcements are shown in the navbar under <%= link_to "What's New", main_app.announcements_path, target: :_blank, class: "text-blue-500 underline" %>.</p>
+    <p class="mb-4">When a user has unread announcements, a red dot will show up next to this link to get their attention that they haven't seen the latest announcements.</p>
+    <p class="mb-4">After viewing the announcements page, the user will have their account updated to record the last time they viewed the announcements and the red dot will be hidden until there new announcements they haven't seen are published.</p>
+    <p class="mb-4">Users who aren't logged in will always see the red dot next to "What's New" in the navbar.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Creating Announcements</h2>
+    <p class="mb-4">To create an announcement, login as an admin and visit <%= link_to "/admin/announcements", main_app.admin_announcements_path, target: :_blank, class: "text-blue-500 underline" %>.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Announcement Types</h2>
+    <p class="mb-4">Jumpstart comes with 4 default announcement types.</p>
+
+    <p class="mb-2"><%= badge "New", color: "announcement-new" %></p>
+    <p class="mb-2"><%= badge "Update", color: "announcement-update" %></p>
+    <p class="mb-2"><%= badge "Improvement", color: "announcement-improvement" %></p>
+    <p class="mb-2"><%= badge "Fix", color: "announcement-fix" %></p>
+
+    <h2 class="mt-8 pb-3 mb-6 border-b border-gray-400">Adding Announcement Types</h2>
+    <p class="mb-4">You can add more by adding to the <code>TYPES</code> constant in <code>app/models/announcements.rb</code> and adding colors to <code>announcements.scss</code>.</p>
+    <p class="mb-4">We also need to explicitly add the notification class to <code>app/helpers/announcements_helper.rb</code> to make sure PurgeCSS keeps our new class in production.</p>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="p-4 lg:p-10" id="<%= dom_id(announcement) %>">
+  <%= link_to announcements_path(anchor: dom_id(announcement)), class: "text-gray-400 text-sm font-medium capitalize" do %>
+    <%= local_relative_time announcement.published_at, 'weekday-or-date' %>
+  <% end %>
+
+  <h2 class="font-semibold text-gray-900 text-lg mb-2"><%= announcement.title %></h2>
+  <%= badge announcement.kind.humanize.titleize, class: "mb-2", color: announcement_color(announcement) %>
+
+  <div class="text-gray-700 text-sm">
+    <%= announcement.description %>
+  </div>
+</div>

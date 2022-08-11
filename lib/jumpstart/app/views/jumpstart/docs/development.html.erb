@@ -1,0 +1,29 @@
+<% content_for :section_title, "Development" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro provides some useful configuration for making development easier.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Processes</h2>
+    <p class="mb-4">As usual, you'll need to run several processes in development.</p>
+
+    <ul class="mb-4 list-disc list-inside">
+      <li><code>rails server</code> - duh. 😜</li>
+      <li><code>yarn run build</code> - bundles Javascript using esbuild</li>
+      <li><code>yarn run build:css</code> - bundles CSS using Tailwind CLI and PostCSS</li>
+      <li><code>sidekiq</code> - or whatever background worker process you have configured</li>
+    </ul>
+
+    <p class="mb-4">You'll also need to make sure PostgreSQL and Redis servers are installed and running.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Foreman</h2>
+    <p class="mb-4">To make running multiple processes easier, you can install foreman and use the supplied Procfile.dev for managing them. Foreman should be installed globally and <strong>not</strong> in your Gemfile to prevent issues with dependencies.</p>
+    <pre><code>gem install foreman</code></pre>
+
+    <p class="mb-4">You can then run your application anytime with:</p>
+    <pre><code>foreman start</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Docker</h2>
+    <p class="mb-4">While not required whatsoever, if you'd like to use Docker, we provide a Dockerfile and docker-compose.yml example configuration you can use as a starting point.</p>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<% if embed.rich? || embed.video? || embed.html %>
+  <div class="embed">
+    <%= embed.html.html_safe %>
+  </div>
+
+<% elsif embed.photo? %>
+  <%= link_to image_tag(embed.fields["url"]), embed.fields["url"], target: :_blank %>
+
+<% elsif embed.link? %>
+  <%= link_to embed.id, embed.id, target: :_blank %>
+<% end %>

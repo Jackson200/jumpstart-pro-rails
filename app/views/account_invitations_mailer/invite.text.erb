@@ -1,0 +1,5 @@
+<%= strip_tags t(".header_html", inviter: @invited_by.name, account: @account.name) %>
+
+<%= t(".description_html", link: t(".accept_or_decline")) %>
+
+<%= t(".view_invitation") %>: <%= account_invitation_url(@account_invitation) %>

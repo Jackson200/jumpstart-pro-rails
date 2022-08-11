@@ -1,0 +1,310 @@
+---
+nl:
+  hello: Hallo Wereld
+  something_went_wrong: Er is iets fout gegaan
+  create_an_account_first: Je hebt een account nodig. Maak dit eerst aan.
+  must_be_an_admin: U moet daarvoor een beheerder zijn.
+  are_you_sure: Weet je het zeker?
+  delete: Verwijderen
+  back: Terug
+  account_invitations_mailer:
+    invite:
+      subject: "%{inviter} heeft je uitgenodigd voor %{account}"
+      header_html: "%{inviter} heeft je uitgenodigd om samen te werken aan <strong>%{account}</strong>"
+      description_html: U kunt deze uitnodiging %{link}.
+      accept_or_decline: accepteren of weigeren
+      view_invitation: Uitnodiging bekijken
+  account_invitations:
+    invite_user: Gebruiker uitnodigen
+    authenticate: Log in of maak een account aan om deze uitnodiging te accepteren
+    not_found: Oeps, we hebben deze uitnodiging niet kunnen vinden. Neem contact op
+      met uw accountbeheerder voor een nieuwe uitnodiging.
+    show:
+      invited_you_to_join_html: "<strong>%{inviter}</strong> heeft je uitgenodigd
+        om lid te worden van <strong> %{account}</strong>"
+      accept: Uitnodiging accepteren
+      decline: Afwijzen
+  account_users:
+    updated: Account lid is bijgewerkt.
+    destroyed: Account lid is verwijderd.
+    edit:
+      description: Accountrechten bewerken voor %{user}.
+  accounts:
+    index:
+      title: Accounts
+      create: Account aanmaken
+      switch: Wijzig
+      current: Huidig Account
+    show:
+      invite: Nodig een gebruiker uit
+      edit: Bewerk
+      edit_account: Bewerk account
+      copy_link: Kopieer link
+    new:
+      breadcrumb: Nieuw account
+      title: Nieuw account
+    edit:
+      breadcrumb: Bewerk
+      title: Bewerk account
+    created: Account is succesvol aangemaakt.
+    updated: Account is bijgewerkt.
+    destroyed: Account is succesvol verwijdert.
+    admin_required: Alleen account beheerders mogen dat doen.
+    personal:
+      cannot_delete: U kunt uw persoonlijke account niet verwijderen.
+    all: Alle accounts
+    users: Gebruikers
+    roles: Rollen
+    account_invitations:
+      new:
+        description: Nodig een gebruiker uit aan uw account.
+        send: Verstuur uitnodiging
+        cancel: Annuleer
+      edit:
+        description: Account uitnodiging bewerken of annuleren.
+        back: Terug
+        update: Uitnodiging aanpassen
+        destroy: Uitnodiging annuleren
+  announcements:
+    index:
+      title: Wat is er nieuw
+      empty_placeholder: Er komen binnenkort spannende dingen aan!
+  api_tokens:
+    created: API-token is gemaakt
+    updated: API-token is bijgewerkt
+    destroyed: Uw API-token is ingetrokken
+    all: Alle API-tokens
+    index:
+      title: API-tokens
+      create: Maak een API-token aan
+      revoke: Intrekken
+    new:
+      breadcrumb: Nieuw
+      title: Nieuwe API-token
+    edit:
+      breadcrumb: Bewerk
+      title: API-token bewerken
+    show:
+      edit: Token bewerken
+      revoke: Token intrekken
+      confirm: Weet u zeker dat u dit API-token wilt intrekken?
+      auth_header: Authenticate met Header
+  cards:
+    updated: Uw kaart is succesvol bijgewerkt.
+    edit:
+      billing: Facturering
+      payment_details: Betalingsgegevens
+    forms:
+      braintree:
+        button: Kaart bijwerken
+        processing: Verwerken...
+      stripe:
+        credit_or_debit_card: Creditcard
+        button: Creditcard bijwerken
+        processing: Verwerken...
+  dashboard:
+    show:
+      title: Dashboard
+  payments:
+    success: Bedankt voor het abonneren!
+    show:
+      successful: betaling gelukt
+      successful_description: Deze betaling is bevestigd.
+      cancelled: Betaling geannuleerd
+      cancelled_description: Deze betaling is geannuleerd.
+      confirm: Bevestig uw %{amount} betaling
+      confirm_description: Er is een extra bevestiging is nodig om uw betaling te
+        verwerken. Bevestig uw betaling door hieronder uw betalingsgegevens in te
+        vullen.
+      back: Ga terug
+      confirm_button: Bevestig betaling
+  static:
+    no_plans: Er zijn geen prijzen geconfigureerd.
+    pricing:
+      heading: Prijzen
+      subhead: Eenvoudige, duidelijke prijzen om uw online bedrijf op te starten
+      monthly: Maandelijks
+      yearly: Jaarlijks
+      get_started: Begin Nu
+    about:
+      title: Over ons
+    privacy:
+      title: Privacybeleid
+    terms:
+      title: Servicevoorwaarden
+  shared:
+    footer:
+      about: Over ons
+      privacy: Privacybeleid
+      terms: Servicevoorwaarden
+    account_navbar:
+      profile: Profiel
+      password: Wachtwoord
+      connected_accounts: Gelinkte accounts
+      billing: Facturering
+      accounts: Accounts
+      api_tokens: API
+    flash:
+      confirm_payment: Bevestig uw laatste betaling
+    navbar:
+      signed_in_as_html: Ingelogd als <strong>%{user}</strong>
+      profile: Profiel
+      password: Wachtwoord
+      connected_accounts: Gelinkte accounts
+      billing: Facturering
+      api_tokens: API
+      accounts: Accounts
+      admin: Beheerders
+      dashboard: Dashboard
+      sign_out: Uitloggen
+      log_in: Inloggen
+      sign_up: Aanmelden
+    right_nav:
+      pricing: Prijzen
+      announcements: Wat is er nieuw
+  subscriptions:
+    created: Bedankt voor het abonneren!
+    resumed: Uw abonnement is hervat.
+    info_updated: Extra factuurgegevens zijn succesvol opgeslagen.
+    new:
+      title: Betalen
+      payment_method: Manier van betalen
+      change: Wijzig
+      subscribe: Inschrijven
+      processing: Verwerken...
+      help: Hulp nodig?
+      contact_html: Aarzel niet om %{link} te gebruiken.
+      renews_html: Wordt automatisch verlengd <br/> na 1 %{interval}
+      contact_support: contact opnemen met helpdesk
+      contact_subject: Ik heb een vraag over %{product}
+      testimonial: Ik heb nog nooit iets zo makkelijk als %{product} gevonden!
+    edit:
+      trial_ends: Uw proefperiode loopt af over %{days}.
+      title: Wijzig uw plan
+      description: Eenvoudige, duidelijke prijzen om uw online bedrijf op te starten
+      monthly: Maandelijks
+      yearly: Jaarlijks
+      current_plan: Huidige plan
+      change_plan: Wijzig plan
+      processing: Verwerken...
+    show:
+      title: Facturering
+      contact_admin: Neem contact op met een beheerder om het %{account}-abonnement
+        te wijzigen.
+    current_plan:
+      title: Huidige plan
+      trial_ends: Uw proefperiode loopt af over %{dagen}.
+      subscription_ends_html: Uw abonnement eindigt op <strong>%{date}</strong>
+      subscription_pauses_html: "Uw abonnement gaat in pauze op <strong>%{date}</strong>"
+      subscription_paused_html: "Uw abonnement is <strong>gepauzeerd</strong>"
+      resume: Abonnement hervatten
+      resuming: Hervatten ...
+      resubscribe_html: Uw abonnement is beëindigd. Wil je %{link}?
+      resubscribe: opnieuw inschrijven
+      current_plan_html: U bent momenteel geabonneerd op het <strong>%{plan}-plan</strong>.
+      change_plan: Wijzig mijn plan
+      not_subscribed: U bent momenteel niet geabonneerd.
+      choose_plan: Kies een plan
+      payment_method: Manier van betalen
+      no_card: Je hebt geen creditcard opgeslagen.
+      update_payment_method: Betaalmethode bijwerken
+      extra_billing_info: Extra factuurgegevens
+      additional_information: Voeg aanvullende informatie toe aan al uw ontvangstbewijzen,
+        zoals uw btw-nummer, volledige bedrijfsnaam en adres.
+      save_info: Bewaar informatie
+      saving: Opslaan...
+      add_info: Informatie toevoegen
+      invoices: Facturen
+      invoices_description: Uw geschiedenis van transacties en betalingen.
+      date: Datum
+      amount: Bedrag
+      receipt: Factuur
+      view: "Zien"
+      pause:
+        title: "Pauzeer uw abonnement"
+        description: "Je kan dit abonnement pauzeren en later terug hervatten."
+        note: "De pauze gaat in op de eerste dag van uw volgende betalingscyclus. Er worden geen kosten in rekening gebracht terwijl uw account gepauzeerd is."
+        button: "Abonnement pauzeren"
+        pausing: "Pauzeren..."
+    cancel:
+      title: Annuleer uw abonnement
+      description: Je kunt op elk moment annuleren, maar je verliest de toegang
+        tot %{product}.
+      help_html: Wil je met iemand praten? %{link} - we helpen u graag.
+      contact_us: Neem contact op
+      subject: Vragen over %{product}?
+      button: Annuleer abonnement
+      cancelling: Annuleren ...
+    forms:
+      stripe:
+        credit_or_debit_card: Creditcard
+  account:
+    passwords:
+      updated: Uw wachtwoord is succesvol gewijzigd.
+      edit:
+        update_password: Wijzig wachtwoord
+        update: Bijwerken
+  users:
+    avatar:
+      upload: Afbeelding uploaden
+    connected_accounts:
+      index:
+        title: Gelinkte accounts
+        description: Door uw sociale media-accounts te koppelen, kunt u gemakkelijker
+          inloggen.
+        remove: Verwijderen
+        redirecting: Doorsturen ...
+        none: Je hebt geen gekoppelde accounts.
+  layouts:
+    mailer:
+      copyright_html: Copyright © %{year}, alle rechten voorbehouden.
+      mailing_address: 'Ons postadres is:'
+      view_in_browser: Bekijk dit in uw browser
+      unsubscribe: Afmelden voor deze lijst
+      preferences: Abonnementsvoorkeuren bijwerken
+  notifications:
+    invite_accepted: "%{user} heeft uw uitnodiging geaccepteerd."
+    empty: Er zijn nog geen meldingen op dit moment.
+    empty_description: We laten je weten wanneer je nieuwe meldingen hebt.
+  activerecord:
+    attributes:
+      api_token:
+        last_used_at: Laatst gebruikt
+        created_at: Aangemaakt
+      account:
+        name_on_card: Naam op kaart
+    errors:
+      models:
+        account:
+          attributes:
+            domain:
+              reserved: "%{waarde} is gereserveerd."
+            subdomain:
+              reserved: "%{waarde} is gereserveerd."
+              format: moet minimaal 2 tekens lang zijn en alfanumeriek
+        account_invitation:
+          attributes:
+            email:
+              invited: is al uitgenodigd
+        account_user:
+          attributes:
+            admin:
+              cannot_be_removed: rol kan niet worden verwijderd voor de accounteigenaar
+  helpers:
+    placeholder:
+      account_invitation:
+        name: Voor-en achternaam
+        email: voorbeeld@domein.com
+      account:
+        name: Accountnaam
+        domain: voorbeeld.com
+        subdomain: voorbeeld
+        name_on_card: Voor-en achternaam
+        extra_billing_info: BTW-nummer, bedrijfsnaam, adres, enz ...
+      api_token:
+        name: Tokennaam
+      user:
+        name: Stefan de Boer
+        email: stefan@voorbeeld.com
+        password: wachtwoord
+

@@ -1,0 +1,31 @@
+<% content_for :section_title, "Authentication" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">User registration, authentication, forgotten passwords, social logins with OAuth, and more.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Authentication with Devise</h2>
+    <p class="mb-4">Jumpstart Pro uses Devise for user registration and authentication. This library is well tested and receives regular security updates allowing you to focus on your business.</p>
+    <p class="mb-4">If you would like to collect other information on registration, you can add the fields to the devise views in <code>app/views/devise</code> and permit the additional params in <code>application_controller.rb</code>.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Social Login / OAuth with Omniauth Providers</h2>
+    <p class="mb-4">Devise is preconfigured to connect with Omniauth providers so users can register or sign in with their social accounts.</p>
+    <p class="mb-4">We automatically handle the various situations that can arise with social auth:</p>
+
+    <ul class="mb-4 list-disc list-inside">
+      <li>Registering a new user with an OAuth account</li>
+      <li>Connecting an OAuth account to an existing user who is logged in</li>
+      <li>Signing into an existing user via their previously connected social account</li>
+      <li>Rejecting login to an existing user who hasn't connected the social account before</li>
+    </ul>
+
+    <p class="mb-4">You're free to override any of this functionality by adding your own methods to the OmniauthCallbacksController like you normally would.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Working with Connected Account OAuth Data And Tokens</h2>
+    <p class="mb-4">The User model <code>has_many :connected_accounts</code> which you can use to access the data collected from the accounts such as credentials and user information.</p>
+    <p class="mb-4">We automatically generate a scope for each provider, so you can filter out connected accounts easily: <code>@user.connected_accounts.twitter.first</code></p>
+    <p class="mb-4">If you would like to do something after connecting an OAuth account, you can add a method to the OmniauthCallbacksController for the provider and it will be called after the account is connected.</p>
+    <p class="mb-4">ConnectedAccount has a method named <code>token</code> that will always return an active API token. It will seamlessly renew expired tokens for you so your code never has to deal with services who provide you expiring tokens.</p>
+    <p class="mb-4">ConnectedAccount records also store the entire auth hash from Omniauth so you can easily debug integrations and access any of that data later on as necessary.</p>
+  </div>
+</div>

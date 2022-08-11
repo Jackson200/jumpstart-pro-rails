@@ -1,0 +1,156 @@
+<% content_for :section_title, "Forms" %>
+
+<div class="mb-20">
+  <p class="mb-4 text-xl leading-normal text-gray-700">TailwindCSS styled forms.</p>
+
+  <h2 class="pb-3 mb-6 border-b border-gray-300">TailwindCSS Forms</h2>
+  <p class="mb-4 text-gray-500">We've included the <%= link_to "TailwindCSS Forms", "https://github.com/tailwindlabs/tailwindcss-forms", target: :_blank %> plugin to provide default styling for form fields.</p>
+
+  <h2 class="pb-3 mb-6 border-b border-gray-300">Block</h2>
+
+    <%= render "jumpstart/docs/snippet" do %>
+<form action="#">
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" class="form-control" placeholder="Johnny Knoxville">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name="email" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="name">Disabled</label>
+    <input type="text" name="name" class="form-control" placeholder="Johnny Knoxville" disabled>
+  </div>
+
+  <div class="form-group">
+    <label for="website">Website</label>
+    <input type="url" name="website" class="form-control error" value="My Website">
+    <p class="form-hint error">Please enter a valid URL</p>
+  </div>
+
+  <div class="form-group">
+    <p class="label">Example avatar upload</p>
+    <input type="file" id="avatar" name="avatar" class="input-file" data-multiple-caption="{count} files selected">
+    <label for="avatar">
+      <%= render_svg "icons/photo", styles: "fill-current icon-sm mr-2" %> <span>Upload Avatar</span>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label for="industry">Industry</label>
+    <select name="industry" class="select">
+      <option value="" selected>Choose an industry</option>
+      <option value="tech">Tech</option>
+      <option value="marketing">Marketing</option>
+      <option value="health_science">Health &amp; Science</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="industries">Industries</label>
+    <select name="industries" class="select" multiple>
+      <option value="" selected>Choose an industry</option>
+      <option value="tech">Tech</option>
+      <option value="marketing">Marketing</option>
+      <option value="health_science">Health &amp; Science</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="industry">Industry</label>
+    <select name="industry" class="select" disabled>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <input type="checkbox" id="checkbox" class="form-checkbox" />
+    <label for="checkbox" class="inline-block">Styled checkbox</label>
+  </div>
+
+  <div class="form-group">
+    <input type="checkbox" id="disabled-checkbox" class="form-checkbox" disabled />
+    <label for="disabled-checkbox" class="inline-block">Disabled checkbox</label>
+  </div>
+</form>
+    <% end %>
+</div>
+
+<div class="mb-20">
+  <h2 class="pb-3 mb-6 border-b border-gray-300">Inline</h2>
+
+    <%= render "jumpstart/docs/snippet" do %>
+<form action="#">
+  <div class="flex flex-wrap items-center justify-start form-group">
+    <label for="name" class="lg:w-1/6 lg:text-right lg:pr-4 lg:mt-2">Name</label>
+    <input type="text" name="name" class="form-control lg:flex-1">
+  </div>
+
+  <div class="flex flex-wrap items-center justify-start form-group">
+    <label for="email" class="lg:w-1/6 lg:text-right lg:pr-4 lg:mt-2">Email</label>
+    <input type="email" name="email" class="form-control lg:flex-1">
+  </div>
+
+  <div class="flex flex-wrap items-center justify-start form-group">
+    <label for="website" class="lg:w-1/6 lg:text-right lg:pr-4 lg:-mt-4">Website</label>
+    <div class="w-full lg:flex-1">
+      <input type="url" name="website" class="form-control error" value="My Website">
+      <p class="w-full form-hint error">Please enter a valid URL</p>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-start form-group">
+    <span class="label lg:w-1/6 lg:text-right lg:pr-4 lg:mt-2">Avatar</span>
+    <div class="w-full lg:flex-1">
+      <input type="file" id="avatar2" name="avatar2" class="input-file" data-multiple-caption="{count} files selected" multiple>
+      <label for="avatar2">
+        <%= render_svg "icons/photo", styles: "fill-current icon-sm mr-2" %> <span>Upload Avatar</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-start form-group">
+    <label for="industry" class="label lg:w-1/6 lg:text-right lg:pr-4 lg:mt-2">Industry</label>
+    <div class="relative w-full lg:flex-1">
+      <select name="industry" class="select">
+        <option value="" selected>Choose an industry</option>
+        <option value="tech">Tech</option>
+        <option value="marketing">Marketing</option>
+        <option value="health_science">Health &amp; Science</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="mb-4 text-gray-700 text-sm">Checkboxes labels can be either on the left or right.</p>
+  <div class="flex flex-wrap items-center justify-start form-group">
+    <label for="admin" class="label lg:w-1/6 lg:text-right lg:pr-4">Admin</label>
+    <input type="checkbox" id="admin" class="form-checkbox" />
+  </div>
+
+  <div class="flex flex-wrap items-center justify-start form-group">
+    <div class="lg:w-1/6 lg:pr-4"></div>
+    <input type="checkbox" id="admin2" class="form-checkbox mr-2" />
+    <label for="admin2" class="inline-block mb-0">Member</label>
+  </div>
+</form>
+    <% end %>
+
+</div>
+
+<div class="mb-20">
+  <h2 class="pb-3 mb-6 border-b border-gray-300">Flatpickr</h2>
+  <p class="mb-3">We're using <%= link_to "stimulus-flatpickr", "https://github.com/adrienpoly/stimulus-flatpickr", target: :_blank %> to enable this functionality. You can customize this to whatever you need as it supports everything Flatpickr does.</p>
+
+  <div class="form-group">
+    <label for="name">Date</label>
+    <input type="text" name="date" class="form-control" data-controller="flatpickr">
+  </div>
+
+  <div class="form-group">
+    <label for="name">Date &amp; Time</label>
+    <input type="text" name="datetime" class="form-control" data-controller="flatpickr" data-flatpickr-enable-time="true">
+  </div>
+</div>

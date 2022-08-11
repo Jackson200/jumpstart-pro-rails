@@ -1,0 +1,22 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="lg:w-1/4 w-full p-4">
+    <%= render partial: "shared/account_navbar" %>
+  </div>
+
+  <div class="lg:w-3/4 w-full p-4">
+    <div class="lg:p-10 p-4 bg-white rounded-lg border border-gray-300">
+      <div class="flex items-center">
+        <%= account_avatar @account, class: "flex-shrink-0 rounded-full mr-4 h-10 w-10" %>
+        <h1 class="h3">
+          <%= link_to @account.name, @account, class: "text-black" %>
+          <%= render_svg "icons/cheveron-right", styles: "fill-current icon-sm text-gray-600 inline-block" %>
+          <%= @account_user.user.name %>
+        </h1>
+      </div>
+
+      <p class="my-4 text-gray-700"><%= t(".description", user: @account_user.user.name || @account_user.user.email) %></p>
+
+      <%= render "form", account_user: @account_user %>
+    </div>
+  </div>
+</div>

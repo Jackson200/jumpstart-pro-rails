@@ -1,0 +1,13 @@
+<div class="mt-4 p-4 bg-white rounded-lg border border-gray-300 lg:p-10">
+  <h3><%= t(".title") %></h3>
+  <p class="mb-4 text-sm text-gray-700"><%= t(".description") %></p>
+
+  <%= form_with url: account_transfer_path(account), method: :patch do |form| %>
+    <div class="form-group">
+      <%= form.label :user_id %>
+      <%= form.collection_select :user_id, account.users.where.not(users: { id: current_user.id }), :id, :name, { prompt: true }, { class: "form-control" } %>
+    </div>
+
+    <%= form.button t(".transfer"), class: "btn btn-primary", data: { turbo_confirm: t(".are_you_sure") } %>
+  <% end %>
+</div>

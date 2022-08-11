@@ -1,0 +1,44 @@
+<% content_for :section_title, "API" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro can provide API access to your application with API tokens and authentication already handled for you.</p>
+
+    <style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://www.youtube.com/embed//QTCuTL470Qc' frameborder='0' allowfullscreen></iframe></div>
+
+    <h2 class="pb-3 mt-6 mb-6 border-b border-gray-400">API Tokens</h2>
+    <p class="mb-4">Every user in Jumpstart Pro can have multiple API tokens. They can create and revoke tokens on API section of their user settings.</p>
+    <p class="mb-4">Tokens keep track of the time they were last used so users can verify their integrations are working correctly and keep an eye on them.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Authentication</h2>
+    <p class="mb-4">Authentication with the Jumpstart Pro API is as simple as passing in the <code>Authorization</code> header. We provide an example of this header on the API token page to make it easy for users to implement</p>
+    <p class="mb-4">An example Authorization header would look like the following:</p>
+
+    <pre><code>GET /api/v1/me.json
+Authorization: Bearer exampletoken</code></pre>
+
+    <p class="mb-4">If you'd like to authenticate users through the API using their email and password to retrieve an API token, you can make a POST request to the auth endpoint with the user's email and password. This is handy for authenticating from a mobile app, etc.</p>
+
+    <pre><code>POST /api/v1/auth.json
+Params: { email: "steve@apple.com", password: "hunter2" }</code></pre>
+
+    <p>This will return a JSON response with a token you can use to access the API.</p>
+    <pre><code>{ token: "abcd1234" }</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Controllers & Routes</h2>
+    <p class="mb-4">API controllers are defined in <code>app/controllers/api/v1/</code>. We provide a <code>/api/v1/me.json</code> and <code>/api/v1/accounts.json</code> endpoint out of the box. You can use these controllers as examples to base your API endpoints off of.</p>
+    <p class="mb-4">API controllers should inherit from <code>Api::BaseController</code> instead of <code>ApplicationController</code>. This enables API authentication. To skip authentication on an endpoint, add <code>skip_before_action :authenticate_api_token!</code> to your actions.</p>
+    <p class="mb-4">Authentication works with Devise so you can access <code>current_user</code> just like normal.</p>
+    <p class="mb-4">Since APIs don't have sessions, there is no <code>current_account</code> equivalent like in the main app. You can use nested resources in the API to scope things under accounts if you want to separate them. For example: <code>/api/v1/accounts/2/projects/4.json</code>.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">JSON Responses</h2>
+    <p class="mb-4">API controllers are configured to return JSON by default.</p>
+    <p class="mb-4">We use JBuilder by default to provide simple JSON templates that most users are already familiar with. To improve JBuilder performance, we have added the <a href="https://github.com/ohler55/oj">OJ gem</a> for enhanced JSON performance.</p>
+    <p class="mb-4">We also recommend checking out the fast_jsonapi gem from Netflix if you'd like to use an alternative.</p>
+
+    <!--
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Adding Resources</h2>
+    <p class="mb-4"></p>
+    -->
+  </div>
+</div>

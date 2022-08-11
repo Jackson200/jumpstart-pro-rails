@@ -1,0 +1,3 @@
+---
+exclude:
+  - 'lib/jumpstart/app/views/pagy/_nav.html.erb'

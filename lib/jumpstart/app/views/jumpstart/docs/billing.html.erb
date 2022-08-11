@@ -1,0 +1,128 @@
+<% content_for :section_title, "Billing" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="text-xl text-gray-700 leading-normal">Jumpstart uses the <%= link_to "Pay gem", "https://github.com/pay-rails/pay", target: :_blank, class: "link underline" %> for handling payments and billing.</p>
+  </div>
+
+  <h2 class="pb-3 mb-6 border-b border-gray-400">Accepting Payments</h2>
+  <p class="mb-4">Jumpstart Pro supports using Stripe, Braintree, or a combination of the two for payments and is configured for monthly and yearly subscriptions out of the box. PayPal is supported through the Braintree integration and may be used entirely on its own or in combination with the Braintree credit card form.</p>
+  <p class="mb-4">Each subscription is attached to a Account, which allows us to offer multiple subscriptions like GitHub, should you wish to use that.</p>
+  <p class="mb-4">You may also use the payments functionality in Jumpstart Pro to process one-time payments instead. In fact, that's what we're using on our website to sell Jumpstart Pro!</p>
+
+  <div class="alert mb-6" role="alert">
+    <div class="flex items-start justify-start">
+      <svg class="fill-current icon mr-4 mt-1 flex-no-shrink" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="currentColor" fill-rule="evenodd">
+          <g id="icon-shape">
+            <path d="M2.92893219,17.0710678 C6.83417511,20.9763107 13.1658249,20.9763107 17.0710678,17.0710678 C20.9763107,13.1658249 20.9763107,6.83417511 17.0710678,2.92893219 C13.1658249,-0.976310729 6.83417511,-0.976310729 2.92893219,2.92893219 C-0.976310729,6.83417511 -0.976310729,13.1658249 2.92893219,17.0710678 Z M15.6568542,15.6568542 C18.7810486,12.5326599 18.7810486,7.46734008 15.6568542,4.34314575 C12.5326599,1.21895142 7.46734008,1.21895142 4.34314575,4.34314575 C1.21895142,7.46734008 1.21895142,12.5326599 4.34314575,15.6568542 C7.46734008,18.7810486 12.5326599,18.7810486 15.6568542,15.6568542 Z M9,5 L11,5 L11,11 L9,11 L9,5 Z M9,13 L11,13 L11,15 L9,15 L9,13 Z" id="Combined-Shape"></path>
+          </g>
+        </g>
+      </svg>
+
+      <div>
+        <p class="leading-normal">If you remove all of your payment providers, the Pricing page and the Billing management page under Account Settings will be disabled.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="pb-3 mb-6 border-b border-gray-400">Strong Customer Authentication (SCA)</h2>
+  <div class="mb-4">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Cn8YlkDB1EM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p class="mb-4">Jumpstart and <%= link_to "the Pay gem", "https://github.com/pay-rails/pay", target: :_blank %> payments using Stripe are now SCA compatible. We provide authentication for setting up new cards and will email customers when a subscription payment requires additional authentication.</p>
+  <p class="mb-4">We use the Stripe CLI to use webhooks to keep subscriptions and payments up-to-date in our application now. This is required to handle SCA payments that require authentication.</p>
+
+  <h2 class="pb-3 mb-6 border-b border-gray-400">Subscriptions</h2>
+  <p class="mb-4">Subscriptions in Jumpstart Pro are billed against a Account, not a User. This allows you to handle various different billing situations.</p>
+  <p class="mb-4">To subscribe an individual, they just need to be logged in as their personal account and the subscription will be billed to them.</p>
+  <p class="mb-4">Account billing allows you to share resources and billing functionality with the entire account and allows any member to manage the subscription. It's much easier to start with account billing support than adding it later, so we've got you covered even if you don't need it right away.</p>
+  <p class="mb-4">For more information on how accounts work in Jumpstart Pro, check out <%= link_to "the Accounts documentation", accounts_docs_path, target: :_blank, class: "text-blue-500" %>.</p>
+
+  <h3 class="pb-3 mb-6 border-b border-gray-400">Defining Plans</h3>
+  <p class="mb-4">Plans can be defined in the <%= link_to "Plans Admin", main_app.admin_plans_path, target: :_blank, class: "text-blue-500", data: { tippy_content: "You must be logged in as an Admin to view this" } %> and allows for changes without deploying code. Each plan should be defined with the price amount in cents.</p>
+  <p class="mb-4">The Stripe and Braintree IDs are used to subscribe the user to the matching plan defined inside Stripe or Braintree.</p>
+  <p class="mb-4">Stripe IDs may either be a Plan ID or a Price ID.</p>
+
+  <h4 class="pb-3 mb-6 border-b border-gray-400">Free Plans</h4>
+  <p class="mb-4">There are two types of "free" plans:</p>
+  <ol class="mb-4">
+    <li>Users who don't pay for your app</li>
+    <li>Users who get free access to paid features</li>
+  </ol>
+
+  <p class="mb-4">For users who use your app for free, they don't need a plan or a subscription. These are just regular users of your app. If they're subscribed, they can access the premium features. If not, they can have access to any free features you want. Technically, they're not subscribed to a "free plan", but you can make the app look and feel like it.</p>
+  <p class="mb-4">For users who get free access to paid features, you can assign them a subscription to a free plan. Jumpstart Pro comes with a free plan that can be used for this purpose and is applied automatically to Admin users who are created in the Jumpstart Config area.</p>
+
+  <pre class="lang-ruby"><code># Ensure Jumpstart free plan exists for admin users
+Plan.where(name: "Free").first_or_create(hidden: true, amount: 0, currency: :usd, interval: :month, trial_period_days: 0, fake_processor_id: :free)
+
+# Create a fake subscription for the admin user so they have access to everything by default
+account = user.accounts.first
+account.set_payment_processor :fake_processor, allow_fake: true
+account.payment_processor.subscribe</code></pre>
+
+  <h3 class="pb-3 mb-6 border-b border-gray-400">Trials</h3>
+  <p class="mb-4">Generic trials are trials without a card or subscription plan. These can be configured in <code>app/models/account.rb</code> by uncommenting the <code>before_create</code> block. You can check if an account is on generic trial with <code>account.on_generic_trial?</code>.</p>
+  <p class="mb-4">Subscription trials are trials that require both a card upfront and a subscription plan selected. You can simply add <code>trial_period_days</code> when creating a Plan in the admin. When the subscription is created, the <code>trial_period_days</code> will be passed along to Stripe and Braintree for adding a trial to the subscription.</p>
+
+  <h3 class="pb-3 mb-6 border-b border-gray-400">Stripe</h3>
+  <p class="mb-2">Processing payments with Stripe is as simple as adding your Stripe credentials, enabling the Stripe configuration, and adding plans with Stripe IDs on them.</p>
+
+  <h4 class="pb-3 mb-6 mt-6 border-b border-gray-400 tracking-wider font-semibold uppercase text-gray-700">Webhooks</h4>
+  <p class="mb-4">The <code>/webhooks/stripe</code> endpoint is available in your application for handling webhooks from Stripe. You can add the webhook to Stripe to have it process activity from your Stripe account.</p>
+
+  <h4 class="pb-3 mb-6 mt-6 border-b border-gray-400 tracking-wider font-semibold uppercase text-gray-700">Stripe CLI</h4>
+  <p class="mb-4">Jumpstart now requires webhooks to support SCA. You must use <%= link_to "the Stripe CLI", "https://stripe.com/docs/stripe-cli", target: :_blank %> to forward webhooks to your local Rails server to process subscriptions and payments with SCA.</p>
+  <pre><code>stripe login</code><br /><code>stripe listen --forward-to localhost:5000/webhooks/stripe</code></pre>
+  <p class="mb-4">Once stripe CLI is running it should display your signing secret. Add it to your credentials to make sure your server can receive stripe events.</p>
+  <p class="mb-4">Alternatively, you can use ngrok or localtunnel to expose your Rails server to the internet so it can receive webhooks.</p>
+
+  <h3 class="pb-3 mb-6 mt-6 border-b border-gray-400">Braintree</h3>
+  <p class="mb-4">Processing payments with Braintree is as simple as adding your Braintree credentials, enabling the Braintree configuration, and adding plans with the Braintree IDs on them. We handle all the heavy lifting such as calculation proration discounts to allow users to swap between monthly and yearly plans which Braintree does not support out of the box.</p>
+
+  <h4 class="pb-3 mb-6 mt-6 border-b border-gray-400 tracking-wider font-semibold uppercase text-gray-700">Plan Credit Discount</h4>
+  <p class="mb-4">Before using Braintree, you will need to define a <code>plan-credit</code> discount in your Braintree control panel. This discount will be used to properly prorate subscriptions that change from yearly to monthly billing, or from monthly to yearly billing.</p>
+  <p class="mb-4">The discount amount configured in the Braintree control panel can be any value you wish, as Pay will override the defined amount with our own custom amount each time we apply the coupon. This coupon is needed since Braintree does not natively support prorating subscriptions across subscription frequencies.</p>
+
+  <h4 class="pb-3 mb-6 mt-6 border-b border-gray-400 tracking-wider font-semibold uppercase text-gray-700">Webhooks</h4>
+  <p>The <code>/webhooks/braintree</code> endpoint is available in your application for handling webhooks from Braintree. You can add the webhook to Braintree to have it </p>
+
+  <h4 class="pb-3 mb-6 mt-6 border-b border-gray-400 tracking-wider font-semibold uppercase text-gray-700">PayPal</h4>
+  <p class="mb-4">PayPal is supported out of the box using Braintree for processing.</p>
+  <p class="mb-4">To enable PayPal in Jumpstart, you'll first need to enable it in your Braintree account under the Processing Options section.</p>
+  <%= image_tag "https://i.imgur.com/coAmQpf.png", class: "mb-4" %>
+
+  <p class="mb-4">Jumpstart supports two PayPal configurations:</p>
+
+  <ol class="list-decimal list-inside mb-4">
+    <li>PayPal inside Braintree's Drop-In UI</li>
+    <li>Standalone PayPal button</li>
+  </ol>
+
+  <p class="mb-4">The Braintree Drop-In UI is a widget like Stripe elements that handles all the various enabled payment options. If you wish to process both credit cards and PayPal through Braintree, this is the best option.</p>
+  <p class="mb-4">The Standalone PayPal button is designed for users who want to use PayPal with Stripe or by itself. This embeds a PayPal checkout button in the form without using the Braintree Drop-In UI. It still uses the Braintree Javascript to do this, but without the credit card form.</p>
+
+  <h2 class="pb-3 mb-6 border-b border-gray-400">One-time Payments</h2>
+  <p class="mb-4">If you want to sell products that are one-time purchases, you can use the payment forms from Jumpstart Pro to do this.</p>
+  <p class="mb-4">The easiest way to do this is to have a user put their card in first and then show them the checkout form.</p>
+  <p class="mb-4">An example from the Jumpstart Pro website when purchasing a license: We check if the current account has a card on file, if so we let you purchase a license. If not, we display the card form.</p>
+
+  <pre><code>
+    &lt;% if !current_account.card_type? %&gt;
+      &lt;p&gt;First, add a payment method to your account:</p>
+
+      &lt;%= render 'cards/forms/stripe'    if Jumpstart.config.stripe? %&gt;
+      &lt;%= render 'cards/forms/braintree' if Jumpstart.config.braintree? %&gt;
+      &lt;%= render 'cards/forms/paypal'    if Jumpstart.config.paypal? %&gt;
+    &lt;% else %&gt;
+      &lt;%= render 'form', license: @license %&gt;
+    &lt;% end %&gt;
+  </code></pre>
+
+  <p class="mb-4">Then on the LicenseController create action, we use <code>current_account.charge(amount)</code> from Pay to issue the charge before creating the license.</p>
+
+  <h3 class="pb-3 mb-6 border-b border-gray-400">Caveats</h3>
+  <p class="mb-4">A user cannot switch from paying with Stripe to Braintree during their subscription. They must cancel and resubscribe to switch payment providers.</p>
+  <p class="mb-4">Since the Javascript for processing Stripe and Braintree are different, it's hard to build a single form with both Stripe and Braintree credit card fields in one. With some changes to our Javascript, we may be able improve this in the future.</p>
+</div>

@@ -1,0 +1,49 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="w-full mb-4 lg:w-1/4 lg:p-4">
+    <%= render partial: "shared/account_navbar" %>
+  </div>
+
+  <div class="w-full lg:w-3/4 lg:p-4">
+    <div class="p-4 bg-white border border-gray-200 rounded-lg lg:p-10">
+      <div class="flex items-center">
+        <%= account_avatar @account, class: "flex-shrink-0 rounded-full mr-4 h-10 w-10" %>
+        <h1 class="h3">
+          <%= link_to @account.name, @account, class: "text-black" %>
+          <%= render_svg "icons/cheveron-right", styles: "fill-current icon-sm text-gray-600 inline-block" %>
+          <%= t(".title") %>
+        </h1>
+      </div>
+
+      <p class="my-4 text-gray-700"><%= t(".description") %></p>
+
+      <%= form_with(model: @account_invitation, url: account_account_invitations_path(@account)) do |form| %>
+        <%= render "shared/error_messages", resource: form.object %>
+
+        <div class="form-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: "form-control", required: true, placeholder: true %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :email %>
+          <%= form.email_field :email, class: "form-control", required: true, placeholder: true %>
+        </div>
+
+        <h5 class="mb-2"><%= t("accounts.roles") %></h5>
+        <div class="form-group">
+          <% AccountUser::ROLES.each do |role| %>
+            <div>
+              <%= form.check_box role, id: role.to_s.parameterize, class: "form-checkbox mr-1" %>
+              <label for="<%= role.to_s.parameterize %>" class="inline-block"><%= role.to_s.humanize %></label>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= form.button t(".send"), class: "btn btn-primary" %>
+          <%= link_to t(".cancel"), @account, class: "btn btn-link" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

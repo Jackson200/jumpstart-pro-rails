@@ -1,0 +1,69 @@
+<%= tag.div class: "mb-8 lg:flex lg:gap-8", id: dom_id(subscription) do %>
+  <% if subscription.generic_trial? %>
+    <div>
+      <%= badge t(".free_trial"), class: "mb-1" %>
+      <div><%= t(".free_trial_ends", date: l(subscription.trial_ends_at.to_date, format: :long)) %></div>
+    </div>
+
+  <% else %>
+    <div class="flex-1">
+      <% if subscription.canceled? %>
+        <%= badge t(".canceled"), class: "mb-1" %>
+      <% elsif subscription.incomplete? %>
+        <%= badge t(".incomplete"), class: "mb-1" %>
+      <% end %>
+
+      <h4><%= subscription.plan.name %></h4>
+      <div class="mb-2 text-lg">
+        <%= subscription.amount_with_currency %>
+        <% if subscription.plan.unit? %>per <%= subscription.plan.unit %><% end %>
+        / <%= subscription.plan.interval %>
+      </div>
+
+      <% if subscription.quantity > 1 %>
+        <div><%= t(".quantity", quantity: subscription.quantity, price: subscription.plan.amount_with_currency) %></div>
+      <% end %>
+
+      <% if subscription.metered_items? %>
+        <div><%= link_to t(".view_usage"), subscription_upcoming_path(subscription), class: "text-sm font-medium" %></div>
+      <% end %>
+
+      <% if subscription.on_trial? && subscription.canceled? %>
+        <div><%= t(".canceled_on_trial", date: l(subscription.trial_ends_at.to_date, format: :long)) %></div>
+      <% elsif subscription.on_trial? %>
+        <div><%= t(".trial", date: l(subscription.trial_ends_at.to_date, format: :long)) %></div>
+      <% elsif subscription.on_grace_period? %>
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="inline-block fill-current text-gray-400 h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+          </svg>
+          <% if subscription.ends_at? %>
+            <%= t(".ends_at", date: l(subscription.ends_at.to_date, format: :long)) %>
+          <% elsif subscription.paddle_paused_from %>
+            <%= t(".paused_at", date: l(subscription.paddle_paused_from.to_date, format: :long)) %>
+          <% end %>
+        </div>
+      <% elsif subscription.paused? %>
+        <div><%= t(".paused") %></div>
+      <% end %>
+    </div>
+
+    <div class="mt-2 flex flex-col gap-2 text-center">
+      <% if subscription.on_grace_period? && !subscription.paddle? %>
+        <%# Cancelled paddle subscriptions cannot be resumed %>
+        <%= link_to t(".resume"), subscription_resume_path(subscription), class: "btn btn-primary" %>
+      <% elsif subscription.paused? %>
+        <%= link_to t(".resume"), subscription_resume_path(subscription), class: "btn btn-primary" %>
+        <%= link_to t(".cancel_plan"), subscription_cancel_path(subscription), class: "btn btn-light-gray" %>
+      <% elsif subscription.active? %>
+        <%= link_to t(".change_plan"), edit_subscription_path(subscription), class: "btn btn-primary" %>
+        <%= link_to t(".pause"), subscription_pause_path(subscription), class: "btn btn-light-gray" if subscription.paddle? || subscription.fake_processor? %>
+        <%= link_to t(".cancel_plan"), subscription_cancel_path(subscription), class: "btn btn-light-gray" %>
+      <% elsif subscription.incomplete? %>
+        <%= link_to t(".confirm_payment"), pay.payment_path(subscription.latest_payment.id), class: "btn btn-primary" %>
+      <% elsif subscription.past_due? %>
+        Past Due
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

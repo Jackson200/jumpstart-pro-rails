@@ -1,0 +1,23 @@
+<% content_for :head, tag(:meta, name: "stripe-key", content: Pay::Stripe.public_key) %>
+
+<%= form_with url: local_assigns.fetch(:url, payment_methods_path),
+  method: local_assigns.fetch(:method, :post),
+  class: "mt-4",
+  data: {
+    controller: "stripe",
+    action: "submit->stripe#submit",
+    stripe_client_secret_value: client_secret,
+    stripe_return_url_value: payment_methods_stripe_url,
+    stripe_target: "form",
+    toggle_target: "toggleable",
+  } do |f| %>
+
+  <div class="form-group">
+    <div data-stripe-target="paymentElement"></div>
+  </div>
+
+  <div data-stripe-target="error" role="alert" class="form-group text-red-600 text-sm"></div>
+
+  <%= f.hidden_field :processor, value: :stripe %>
+  <%= f.button t(".button"), id: 'submit-button', class: "btn btn-primary", data: { action: "click->stripe#submit", disable_with: disable_with(t("processing")) } %>
+<% end %>

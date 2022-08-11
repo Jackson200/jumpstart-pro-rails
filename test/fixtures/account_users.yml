@@ -1,0 +1,47 @@
+# == Schema Information
+#
+# Table name: account_users
+#
+#  id         :bigint           not null, primary key
+#  roles      :jsonb            not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  account_id :integer
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_account_users_on_account_id  (account_id)
+#  index_account_users_on_user_id     (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (user_id => users.id)
+#
+
+one:
+  user: one
+  account: one
+  roles:
+    admin: true
+
+two:
+  user: two
+  account: two
+  roles:
+    admin: true
+
+company_admin:
+  account: company
+  user: one
+  roles:
+    admin: true
+
+company_regular_user:
+  account: company
+  user: two
+
+invited_user:
+  account: invited
+  user: invited

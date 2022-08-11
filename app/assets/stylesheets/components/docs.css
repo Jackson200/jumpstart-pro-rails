@@ -1,0 +1,9 @@
+.docs-main {
+  min-height: calc(100vh - 64px);
+}
+
+.image-placeholder {
+  height: 180px;
+
+  @apply bg-gray-300 flex items-center justify-center;
+}

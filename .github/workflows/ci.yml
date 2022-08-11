@@ -1,0 +1,63 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        ports: ['5432:5432']
+      redis:
+        image: redis
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: default
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: yarn
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y -qq libvips
+          yarn install --frozen-lockfile
+
+      - name: Standardrb Check
+        run: bundle exec standardrb
+
+# Uncomment to enable Brakeman checks in CI
+#     - name: Brakeman Check
+#       run: bundle exec brakeman
+
+      - name: Run tests
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost:5432/test
+          REDIS_URL: redis://localhost:6379/0
+          RAILS_ENV: test
+          PG_USER: postgres
+        run: |
+          bin/rails test:prepare
+          bin/rails db:test:prepare
+          bin/rails test
+          bin/rails test:system

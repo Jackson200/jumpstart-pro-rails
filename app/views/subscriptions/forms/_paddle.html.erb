@@ -1,0 +1,16 @@
+<%= form_with url: local_assigns.fetch(:url, subscriptions_path),
+  method: local_assigns.fetch(:method, :post),
+  data: {
+    controller: "paddle",
+    paddle_target: "form",
+    paddle_action: "create-subscription",
+    paddle_product: @plan.try(:paddle_id),
+    paddle_email: current_user.email,
+    paddle_passthrough: Pay::Paddle.passthrough(owner: current_account),
+  } do |f| %>
+
+  <div class="paddle-checkout"></div>
+
+  <%= f.hidden_field :processor, value: :paddle %>
+  <%= f.hidden_field :plan, value: @plan.id %>
+<% end %>

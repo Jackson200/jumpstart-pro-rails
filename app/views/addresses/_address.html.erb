@@ -1,0 +1,6 @@
+<%= tag.div address.line1 if address.line1? %>
+<%= tag.div address.line2 if address.line2? %>
+<div>
+  <%= [address.city, address.state].compact.join(", ") %> <%= address.postal_code %>
+</div>
+<div><%= ISO3166::Country[address.country].common_name if address.country? %></div>

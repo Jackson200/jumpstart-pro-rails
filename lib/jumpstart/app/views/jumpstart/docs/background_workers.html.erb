@@ -1,0 +1,24 @@
+<% content_for :section_title, "Background Workers" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro makes adding background workers easy.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Choosing Your Background Workers</h2>
+    <p class="mb-4">The Jumpstart Pro config admin lets you select your preferred tool for processing background jobs.</p>
+
+    <ul class="mb-4 list-disc list-inside">
+      <li>Async - Default, no dependencies</li>
+      <li>Sidekiq - Recommended, requires Redis</li>
+      <li>Sneakers - Requires RabbitMQ</li>
+      <li>Delayed Job</li>
+      <li>Sucker Punch - doesn't require a separate process, but doesn't allow scheduling</li>
+    </ul>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Active Job</h2>
+    <p class="mb-4">After selecting your background worker of choice and saving your config, Jumpstart Pro will add the gem and configure ActiveJob to use it as the default for all environments.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Sidekiq</h2>
+    <p class="mb-4">If Sidekiq is enabled, we automatically enable the Sidekiq Web UI, restrict it to only admin users and add links to it in the navigation.</p>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+{
+  "name": "Jumpstart Pro",
+  "description": "A Ruby on Rails template for SaaS apps and more",
+  "website": "https://jumpstartrails.com",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate"
+  },
+  "env": {
+    "BUNDLE_WITHOUT": "development:test",
+    "JEMALLOC_ENABLED": "true",
+    "MALLOC_ARENA_MAX": "2",
+    "NODE_MODULES_CACHE": "true",
+    "RAILS_MASTER_KEY": {
+      "description": "Secret key for decrypting Rails credentials. You can find it at: config/credentials/production.key"
+    },
+    "RAILS_ENV": {
+      "description": "The Rails environment to run: production or staging",
+      "value": "production"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "image": "heroku/ruby",
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev",
+    "scheduler:standard"
+  ],
+  "buildpacks": [
+    { "url": "https://github.com/heroku/heroku-buildpack-apt.git" },
+    { "url": "https://github.com/brandoncc/heroku-buildpack-vips" },
+    { "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git" },
+    { "url": "heroku/nodejs" },
+    { "url": "heroku/ruby" }
+  ],
+  "environments": {
+    "test": {
+      "env": {
+        "BUNDLE_WITHOUT": "production"
+      },
+
+      "scripts": {
+        "test": "bundle exec rails test"
+      }
+    }
+  },
+  "stack": "heroku-22"
+}
+

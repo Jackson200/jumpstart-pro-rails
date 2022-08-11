@@ -1,0 +1,10 @@
+<div class="bg-white border border-gray-200 rounded text-sm font-medium">
+  <%= nav_link_to t(".profile"), edit_user_registration_path, class: "block no-underline p-3 px-6 rounded-t", active_class: "bg-blue-600 text-white hover:text-white", inactive_class: "text-gray-700 hover:text-gray-700 hover:bg-gray-100" %>
+  <%= nav_link_to t(".password"), edit_account_password_path, class: "block no-underline p-3 px-6", active_class: "bg-blue-600 text-white hover:text-white", inactive_class: "text-gray-700 hover:text-gray-700 hover:bg-gray-100" %>
+  <%= nav_link_to t(".connected_accounts"), user_connected_accounts_path, class: "block no-underline p-3 px-6", active_class: "bg-blue-600 text-white hover:text-white", inactive_class: "text-gray-700 hover:text-gray-700 hover:bg-gray-100" if Devise.omniauth_configs.any? %>
+  <% unless turbo_native_app? %>
+    <%= nav_link_to t(".billing"), subscriptions_path, class: "block no-underline p-3 px-6", active_class: "bg-blue-600 text-white hover:text-white", inactive_class: "text-gray-700 hover:text-gray-700 hover:bg-gray-100", starts_with: ["/subscriptions", "/payment_methods"] if Jumpstart.config.payments_enabled? %>
+  <% end %>
+  <%= nav_link_to t(".accounts"), accounts_path, class: "block no-underline p-3 px-6", active_class: "bg-blue-600 text-white hover:text-white", inactive_class: "text-gray-700 hover:text-gray-700 hover:bg-gray-100", starts_with: "/accounts" %>
+  <%= nav_link_to t(".api_tokens"), api_tokens_path, class: "block no-underline p-3 px-6 rounded-b", active_class: "bg-blue-600 text-white hover:text-white", inactive_class: "text-gray-700 hover:text-gray-700 hover:bg-gray-100", starts_with: "/api_tokens" %>
+</div>

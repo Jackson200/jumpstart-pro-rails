@@ -1,0 +1,15 @@
+<div class="max-w-xl mx-auto mt-12 p-8 bg-white rounded shadow">
+  <h3><%= t ".title" %></h3>
+  <div class="flex-1 mt-2 text-gray-700">
+    <div class="font-bold"><%= t ".description" %></div>
+    <div><%= t ".note" %></div>
+  </div>
+
+  <div class="mt-4 flex justify-between items-center">
+    <%= link_to t(".back"), subscriptions_path, class: "btn btn-light-gray" %>
+
+    <%= button_to subscription_pause_path(@subscription), method: :patch, class: "btn btn-primary", form: { data: { turbo_confirm: t("are_you_sure") } } do %>
+      <%= button_text t(".button"), disable_with: t(".processing") %>
+    <% end %>
+  </div>
+</div>

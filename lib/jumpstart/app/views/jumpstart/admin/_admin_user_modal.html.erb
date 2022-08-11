@@ -1,0 +1,51 @@
+<div data-controller="modal" data-modal-disable-backdrop="true" id="admin_user_modal">
+  <button class="hidden" id="show_admin_user_form" data-action="click->modal#open"></button>
+
+  <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+    <!-- Modal Inner Container -->
+    <div class="fixed top-0 left-0 w-full h-full relative">
+      <!-- Modal Card -->
+      <div class="w-screen h-screen bg-white">
+        <div class="flex flex-wrap justify-center items-center h-screen">
+          <div class="w-2/3 m-auto">
+
+            <%= turbo_frame_tag user do %>
+              <%= form_with model: user, url: users_path, class: "modal-content" do |form| %>
+                <%= render "shared/error_messages", resource: form.object %>
+
+                <h3 class="mb-4">Create an Admin User</h3>
+                <p class="mb-4">This will create an admin user in your current environment.</p>
+
+                <div class="form-group">
+                  <%= form.label :name %>
+                  <%= form.text_field :name, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                  <%= form.label :email %>
+                  <%= form.email_field :email, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                  <%= form.label :password %>
+                  <%= form.password_field :password, class: "form-control" %>
+                </div>
+
+                <div class="form-group">
+                  <%= form.label :time_zone %>
+                  <%= form.time_zone_select :time_zone, nil, { default: browser_time_zone.name }, { class: "form-control" } %>
+                </div>
+
+                <div class="flex justify-end items-center flex-wrap mt-6">
+                  <a class="cursor-pointer btn btn-link mr-3" data-action="click->modal#close">Cancel</a>
+                  <%= form.submit "Add User", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<% content_for :section_title, "Icons" %>
+
+<div class="pb-10 mb-10 border-b border-gray-300">
+  <h3 class="pb-2 mb-2 h2">FontAwesome</h3>
+
+  <p class="mb-6">FontAwesome Free is already included in Jumpstart Pro!</p>
+
+  <p class="mb-6">To use FontAwesome Pro, you can easily add it to your Jumpstart Pro application:</p>
+
+  <ol class="mb-6">
+    <li><%= link_to "Create a Kit", "https://fontawesome.com/kits", target: :_blank %> on FontAwesome's website. Make sure to edit your Kit to enable Pro icons.</li>
+    <li>Edit <code>app/views/layouts/application.html.erb</code> and paste in your Kit html into the head tag. You can remove the FontAwesome link for the free version. You won't need that anymore.</li>
+    <li>Refresh your page and you're good to go. <i class="far fa-thumbs-up"></i></li>
+  </ol>
+
+  <p class="mb-6">Using Font Awesome icons is as simple as embedding the HTML for it:</p>
+  <pre><code>&lt;i class="far fa-thumbs-up"&gt;&lt;/i&gt;</code></pre>
+
+  <p class="mb-6">Or you can use our <code>fa_icon</code> helper in ApplicationHelper:</p>
+  <pre><code>&lt;%= fa_icon "thumbs-up" %&gt;</code></pre>
+</div>
+
+<div class="pb-10 mb-10 border-b border-gray-300">
+  <h3 class="pb-2 mb-2 h2">Zondicons</h3>
+  <p class="mb-6 leading-normal">The icons shipping with Jumpstart are from the <%= link_to "Zondicons", "https://www.zondicons.com/", class: "link" %> library from <%= link_to "Steve Schoger", "https://twitter.com/steveschoger", class: "link" %>. Find them in <code>app/images/icons</code>. We use a <code>SVG</code> render function that hooks into the <%= link_to "inline_svg", "https://github.com/jamesmartin/inline_svg", class: "link" %> gem. In doing so you can pass <code>styles</code>. <code>title</code>, and <code>name</code> attributes which are all optional.</p>
+
+  <p class="leading-normal">The helper is found in <code>app/helpers/application_helper.rb</code>.</p>
+
+  <div class="mb-6">
+<pre><code>def render_svg(name, options = {})
+  options[:title] ||= name.underscore.humanize
+  options[:aria] = true
+  options[:nocomment] = true
+  options[:class] = options.fetch(:styles, "fill-current text-gray-500")
+
+  filename = "#{name}.svg"
+  inline_svg_tag(filename, options)
+end</code></pre>
+</div>
+
+  <p class="leading-normal">Pass in both <code>fill-current</code> &amp; a text color class from Tailwind CSS to alter the colors respectively. Use the helper like the following for SVG-based icons/images</p>
+
+  <pre class=""><code>&lt;%= render_svg "icon-name", styles: "fill-current text-color-black icon-lg", title: "my icon" %&gt;</code></pre>
+
+  <div class="grid w-full grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+    <% @icons.each do |icon| %>
+      <% name = icon.chomp('.svg') %>
+      <div class="relative flex flex-col items-center justify-center h-32 p-6 text-center border rounded">
+        <div class="w-full">
+        <%= render_svg "#{name}", title: "#{name}", styles: "fill-current text-gray-700 icon-lg text-center inline" %>
+        </div>
+        <div class="absolute inset-x-auto bottom-0 mt-2 mb-2 ml-2 text-xs text-gray-700"><%= name %></div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="pb-10 mb-10 border-b border-gray-300">
+  <h3 class="pb-2 mb-2 h2">Heroicons</h3>
+  <p class="mb-4 leading-normal">Another option for icons is <%= link_to "Hericons", "https://heroicons.com/", target: :_blank %> from Steve Schoger. You can copy paste the SVGs into your template as needed.</p>

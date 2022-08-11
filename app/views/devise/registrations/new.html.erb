@@ -1,0 +1,67 @@
+<% content_for :form_block do %>
+  <div class="mb-4 text-center">
+    <h2 class="mb-1"><%= t('.sign_up') %></h2>
+    <%= t(".login_html", link: link_to("log in to your account", new_session_path(resource_name), class: "font-semibold")) %>
+  </div>
+
+  <% if @account_invitation %>
+    <div class="flex items-center justify-center mb-4 text-center">
+      <%= image_tag avatar_url_for(@account_invitation.account), class: "h-5 w-5 rounded-full inline-block mr-1" %>
+      <div>
+        <strong><%= @account_invitation.invited_by.name %></strong> invited you to join <strong><%= @account_invitation.account.name %></strong>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name, invite: params[:invite])) do |f| %>
+    <%= render "shared/error_messages", resource: resource %>
+
+    <%# Add any extra fields when creating an Account as part of registration %>
+    <%= f.fields_for :owned_accounts do |a| %>
+      <div class="form-group">
+        <%= a.label :name %>
+        <%= a.text_field :name, autofocus: true, placeholder: true, class: "form-control" %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, autocomplete: "name", placeholder: true, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, autocomplete: "email", placeholder: true, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: true, class: "form-control" %>
+      <% if @minimum_password_length %>
+        <p class="mt-3 text-sm text-gray-600"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></p>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :time_zone %>
+      <%= f.time_zone_select :time_zone, nil, { default: browser_time_zone.name }, { class: "select" } %>
+    </div>
+
+    <div class="form-group">
+      <%= invisible_captcha %>
+    </div>
+
+    <div class="form-group">
+      <%= f.check_box :terms_of_service, id: "tos", class: "form-checkbox mr-1" %>
+      <label for="tos" class="inline-block text-sm"><%= t ".terms_html", terms: link_to("terms of service", terms_path, target: "_blank", class: "btn-link"), privacy: link_to("privacy policy", privacy_path, target: "_blank", class: "btn-link") %></label>
+    </div>
+
+    <div class="form-group">
+      <%= f.button button_text(t('.sign_up'), disable_with: t(".submitting")), class: "btn btn-primary btn-expanded" %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+<% end %>
+
+<%= render "devise/shared/form_block" %>

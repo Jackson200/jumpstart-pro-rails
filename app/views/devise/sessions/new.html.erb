@@ -1,0 +1,33 @@
+<% content_for :form_block do %>
+  <div class="mb-4 text-center">
+    <h2 class="mb-px"><%= t('.sign_in') %></h2>
+    <%= t ".sign_up_html", link: link_to("sign up for an account", new_registration_path(resource_name), class: "font-semibold") %>
+  </div>
+
+  <%= form_with(model: resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: true, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "current-password", placeholder: true, class: "form-control" %>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="form-group">
+        <%= f.check_box :remember_me, class: "form-checkbox" %>
+        <%= f.label :remember_me, class: "inline-block" %>
+      </div>
+    <% end -%>
+
+    <div class="form-group">
+      <%= f.submit t('.sign_in'), class: "btn btn-primary btn-expanded" %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+<% end %>
+
+<%= render "devise/shared/form_block" %>

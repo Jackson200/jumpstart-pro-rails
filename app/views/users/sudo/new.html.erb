@@ -1,0 +1,21 @@
+<div class="max-w-sm mx-auto mt-16">
+  <h1 class="h3 text-center"><%= t("users.sudo.header") %></h1>
+
+  <div class="bg-white rounded shadow p-8 mt-8">
+    <%= form_with url: sudo_path do |form| %>
+      <%= hidden_field_tag :redirect_to, params[:redirect_to] || request.url %>
+
+      <div class="form-group">
+        <div class="flex justify-between">
+          <%= form.label :password %>
+          <%= link_to t("users.sudo.forgot_password"), new_user_password_path, class: "text-sm font-semibold" %>
+        </div>
+        <%= form.password_field :password, autocomplete: "current-password", placeholder: true, class: "form-control", autofocus: true %>
+      </div>
+
+      <div>
+        <%= form.submit t('users.sudo.submit'), class: "btn btn-primary btn-expanded" %>
+      </div>
+    <% end %>
+  </div>
+</div>

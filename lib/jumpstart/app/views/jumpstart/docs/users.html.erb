@@ -1,0 +1,34 @@
+<% content_for :section_title, "Users" %>
+
+<div class="mb-10">
+  <p class="text-xl text-gray-700 leading-normal">Jumpstart provides several pieces of functionality for users to make developing applications easier.</p>
+</div>
+
+<div class="mb-10 pb-10 border-b border-gray-300">
+  <h3 class="h2 mb-2 pb-2">Admins</h3>
+
+  <p class="mb-4 leading-normal">Users with the <code>admin</code> flag set to <code>true</code> will be allowed to access the application's admin interface (built with Administrate), Sidekiq web UI, and more.</p>
+  <p class="mb-4 leading-normal">To set a user as an admin, simply update their admin flag: <code>user.update(admin: true)</code> from the Rails console.</p>
+  <p class="mb-4 leading-normal">You can check this flag if you would like to restrict any functionality only to admin users.</p>
+</div>
+
+<div class="mb-10 pb-10 border-b border-gray-300">
+  <h3 class="h2 mb-2 pb-2">Personal Account</h3>
+
+  <p class="mb-4 leading-normal">Every user has a personal account that's only usable by themselves, so you can easily associate resources to accounts and still have private resources to a user.</p>
+  <p class="mb-4 leading-normal">Make sure to add <code>account:references</code> when generating your models.</p>
+  <p class="mb-4 leading-normal">If you'd like a resource to be shared across a Account, you can scope your controllers to the current account so the resources are shared between users in the associated account.</p>
+</div>
+
+<div class="mb-10 pb-10 border-b border-gray-300">
+  <h3 class="h2 mb-2 pb-2">Account Roles</h3>
+
+  <p class="mb-4 leading-normal">Users can be assigned a role for each account they are a part of. By default, we only provide an <code>admin</code> role, but you can add more rules in <code>app/models/account_user.rb</code>. These roles will be listed in the UI when adding or editing a account member.</p>
+  <p class="mb-4 leading-normal">You can check the role on the account member to restrict access to certain functionality on the account as needed.</p>
+</div>
+
+<div class="mb-10 pb-10">
+  <h3 class="h2 mb-2 pb-2">Connected Accounts</h3>
+
+  <p class="mb-4 leading-normal">Users can sign up or login with connected accounts. We automatically add links based upon which Omniauth providers are enabled. By default, Jumpstart has options for a few Omniauth providers, but you're free to add other providers and they will be automatically added to parts of the UI.</p>
+</div>

@@ -1,0 +1,134 @@
+<nav class="p-4 border-b border-gray-200">
+  <%= link_to root_path do %>
+    <%= render_svg "logo", styles: "inline-block fill-current text-gray-700 hover:text-gray-800" %>
+    <span class="sr-only"><%= Jumpstart.config.application_name %></span>
+  <% end %>
+</nav>
+
+<div class="p-4 max-w-6xl mx-auto grid lg:grid-cols-2 lg:gap-48 lg:py-24">
+  <div>
+    <div class="flex justify-center mb-4 lg:justify-start">
+      <% if @plan.has_trial? %>
+        <div>
+          <h1 class="font-semibold text-lg text-gray-500">Try <%= @plan.name %></h1>
+          <h3 class="my-1 font-bold text-3xl"><%= @plan.trial_period_days %> days free</h3>
+          <p class="font-medium text-gray-500">Then <span id="recurringTotal"><%= @plan.amount_with_currency %></span> per <%= @plan.interval %></p>
+        </div>
+
+      <% else %>
+        <div>
+          <h1 class="font-semibold text-lg text-gray-500">Subscribe to <%= @plan.name %></h1>
+
+          <div class="flex items-center">
+            <h3 id="recurringTotal" class="my-1 font-bold text-4xl"><%= @plan.amount_with_currency %></h3>
+
+            <div class="ml-2 font-medium text-sm text-gray-500 leading-none">
+              <% if @plan.unit? %>
+                <div>per <%= @plan.unit %></div>
+                <div>per <%= @plan.interval %></div>
+              <% else %>
+                <div>per</div>
+                <div><%= @plan.interval %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @plan.taxed? %>
+      <div class="mb-4 text-sm text-gray-700"><%= t(".tax_may_apply") %></div>
+    <% end %>
+
+    <div class="hidden flex justify-center mb-4 lg:block">
+      <div>
+        <% @plan.features.each do |plan_feature| %>
+          <div class="flex mb-2 text-gray-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mr-2 text-blue-500 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <div><%= plan_feature %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex justify-center mb-4">
+      <div class="hidden lg:block">
+        <hr class="my-8 border-b border-gray-300" />
+
+        <blockquote class="sm:flex lg:block">
+          <p class="text-lg text-gray-600"><%= t("subscriptions.new.testimonial", product: Jumpstart.config.application_name) %></p>
+          <cite class="mt-4 block font-semibold not-italic text-gray-900">
+            <div class="flex items-center">
+              <img class="block h-8 rounded-full mx-auto mb-4 sm:mb-0 sm:mr-4 sm:ml-0" src="https://avatars1.githubusercontent.com/u/67093?s=40&v=4" alt="">
+              <p class="font-medium leading-tight">Chris Oliver</p>
+            </div>
+          </cite>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h1 class="hidden h3 mb-4 lg:block"><%= t("subscriptions.new.title") %></h1>
+
+    <h5 id="billing-address" class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t("subscriptions.new.account") %></h5>
+    <div class="flex items-center mb-8">
+      <%= account_avatar current_account, class: "h-10 w-10 rounded-full mr-4" %>
+      <h4><%= current_account.name %></h4>
+    </div>
+
+    <h5 id="billing-address" class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t("subscriptions.new.billing_address") %></h5>
+
+    <div class="mb-8 lg:flex lg:gap-8">
+      <div class="flex-1">
+        <%= form_with model: current_account.find_or_build_billing_address, url: subscriptions_billing_address_path, method: :patch do |form| %>
+          <div class="mb-1">
+            <%= form.label :line1, "Address line 1" %>
+            <%= form.text_field :line1, class: "form-control" %>
+          </div>
+
+          <div class="mb-1">
+            <%= form.label :line2, "Address line 2" %>
+            <%= form.text_field :line2, class: "form-control" %>
+          </div>
+
+          <div class="mb-1">
+            <%= form.label :city %>
+            <%= form.text_field :city, class: "form-control" %>
+          </div>
+
+          <div class="mb-1">
+            <%= form.label :state, "State/Province" %>
+            <%= form.text_field :state, class: "form-control" %>
+          </div>
+
+          <div class="mb-1">
+            <%= form.label :postal_code %>
+            <%= form.text_field :postal_code, class: "form-control" %>
+          </div>
+
+          <div class="mb-1">
+            <%= form.label :country %>
+            <%= form.country_select :country, include_blank: true %>
+          </div>
+
+          <%= hidden_field_tag :plan, @plan.id %>
+
+          <div class="mt-8">
+            <%= form.button "Continue", class: "btn btn-primary btn-block btn-large" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="text-sm text-center mt-8">
+      <%= render_svg "icons/question", styles: "fill-current text-gray-500 w-4 h-4 inline-block" %>
+      <%= t("subscriptions.new.help") %>
+      <span class="text-gray-600">
+        <%= t("subscriptions.new.contact_html", link: mail_to(Jumpstart.config.support_email, t("subscriptions.new.contact_support"), subject: t("subscriptions.new.contact_subject", product: Jumpstart.config.application_name), class: "text-gray-800 underline")) %>
+      </span>
+    </div>
+  </div>
+</div>

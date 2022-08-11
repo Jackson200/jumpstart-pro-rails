@@ -1,0 +1,130 @@
+<% content_for :section_title, "Using Jumpstart Pro iOS & Android with Existing Apps" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">If you're not using Jumpstart Pro Rails, here are the steps needed to update your web application to work with Jumpstart Pro iOS &amp; Android.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">API endpoints</h2>
+    <p class="mb-4">Your Rails API will be used for authentication and other features.</p>
+    <p class="mb-4">The host and URL base path are configurable in the iOS / Android app Endpoint configuration. By default, the host is <code>http://localhost:3000</code> and base API uri is <code>/api/v1</code>. You can change this configuration to match your application&#39;s API.</p>
+    <p class="mb-4">When making requests to the API, you&#39;ll want to follow these rules:</p>
+    <ul class="mb-4">
+      <li>Include <code>Android (Turbo Native)</code> or <code>iOS (Turbo Native)</code> in the User Agent for all API requests. This tells the API the request came from Turbo Native and should be handled accordingly.</li>
+      <li>Use the <code>Authorization</code> header to authenticate user with an API token</li>
+    </ul>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Mobile Views</h2>
+    <p class="mb-4">Some views will need a custom version for Turbo Native. You can use <a href="https://gorails.com/episodes/rails-request-variants">Request Variants</a> to accomplish this.</p>
+    <p class="mb-4">Hotwire includes a <code>turbo_native_app?</code> helper that checks the <code>User-Agent</code> header for Turbo Native. You can set the request variant for Turbo Native requests using that.</p>
+    <pre><code>before_action <span class="hljs-keyword">do</span>
+  request.variant = <span class="hljs-symbol">:phone</span> <span class="hljs-keyword">if</span> turbo_native_app?
+<span class="hljs-keyword">end</span></code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Navbar</h2>
+    <p class="mb-4">The iOS / Android app uses a native header so it feels native. We add a hamburger button to this which triggers a Javascript event using the Turbo Bridge.</p>
+    <p class="mb-4">In Rails, you&#39;ll want to hide your navbar on Turbo Native requests. Use a request variant template for this so you can minimize the HTML used for mobile.</p>
+    <p class="mb-4">The menu should be hidden, but toggles when the <code>toggle-nav-bar</code> event fires. You can create a simple Stimulus Controller to listen to that event and toggle the navbar visibility.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Turbo Bridge</h2>
+    <p class="mb-4">The Turbo Bridge is how your iOS / Android app and Javascript talk to each other. Add this to your Javascript. We&#39;re using Webpacker, but you can probably use this in the asset pipeline as well, it just might take a few small tweaks.</p>
+    <pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bridge</span> </span>{
+  <span class="hljs-comment">// Toggles navbar visibility in browser from Turbo Native</span>
+  <span class="hljs-keyword">static</span> toggleNavBar() {
+    <span class="hljs-keyword">const</span> event = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">"toggle-nav-bar"</span>)
+    <span class="hljs-built_in">window</span>.dispatchEvent(event)
+  }
+
+  <span class="hljs-comment">// Sends a message to the native app, if active.</span>
+  <span class="hljs-keyword">static</span> postMessage(name, data = {}) {
+    <span class="hljs-comment">// iOS</span>
+    <span class="hljs-built_in">window</span>.webkit?.messageHandlers?.nativeApp?.postMessage({name, ...data})
+
+    <span class="hljs-comment">// Android</span>
+    <span class="hljs-built_in">window</span>.nativeApp?.postMessage(<span class="hljs-built_in">JSON</span>.stringify({name, ...data}))
+  }
+}
+
+<span class="hljs-comment">// Expose this on the window object so TurboNative can interact with it</span>
+<span class="hljs-built_in">window</span>.TurboNativeBridge = Bridge
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Bridge</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Authentication</h2>
+    <p class="mb-4">Authentication requires an API endpoint that accepts <code>email</code> and <code>password</code> params.</p>
+    <p class="mb-4">It should:</p>
+    <ul class="mb-4">
+      <li>Respond to <code>POST /api/v1/auth</code></li>
+      <li>Validate the email and password</li>
+      <li>Sign the user in (with cookies)</li>
+      <li>Find or create an API token for the user</li>
+      <li>Return a 200 OK JSON response with:<ul>
+          <li><code>token</code> - the API token for the iOS / Android device to make API requests</li>
+        </ul>
+      </li>
+    </ul>
+    <p class="mb-4">Successful authentication will refresh the currently visible page.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Sign out</h2>
+    <p class="mb-4">Sign out must happen on the iOS / Android app side. That way we can delete the API token, make an API request to remove the NotificationToken, and clear cookies in the WebView.</p>
+    <p class="mb-4">To intercept the Sign out link in the HTML, use the following Javascript:</p>
+    <pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-type">Controller</span> } from <span class="hljs-string">"stimulus"</span>
+
+export <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span> </span>{
+  signOut(event) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>._isTurboNativeApp) {
+      event.preventDefault()
+      event.stopImmediatePropagation()
+      window.<span class="hljs-type">TurboNativeBridge</span>.postMessage(<span class="hljs-string">"signOut"</span>)
+    }
+  }
+
+  get _isTurboNativeApp() {
+    <span class="hljs-keyword">return</span> navigator.userAgent.indexOf(<span class="hljs-string">"Turbo Native"</span>) !== <span class="hljs-number">-1</span>
+  }
+}</code></pre>
+
+    <p class="mb-4">The API endpoint for Sign out needs to do two things:</p>
+    <ul class="mb-4">
+      <li>Respond to <code>DELETE /api/v1/auth</code></li>
+      <li>Delete the NotificationToken</li>
+      <li>Sign out the current user (removing cookies)</li>
+      <li>Returns a 200 OK response</li>
+    </ul>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Update Password</h2>
+    <p class="mb-4">Changing your password is a simple API request</p>
+    <p class="mb-4"><code>PATCH /api/v1/password</code></p>
+    <p class="mb-4">Headers:</p>
+    <ul class="mb-4">
+      <li><code>Authorization</code> - The user&#39;s API token</li>
+    </ul>
+    <p class="mb-4">Params:</p>
+    <ul class="mb-4">
+      <li><code>user[current_password]</code> - The user&#39;s current password</li>
+      <li><code>user[password]</code> - The new password</li>
+      <li><code>user[password_confirmation]</code> - The new password</li>
+    </ul>
+    <p class="mb-4">Returns:</p>
+    <p>Success - 200 OK</p>
+    <pre><code class="lang-json">{ <span class="hljs-attribute">success</span>: true }</code></pre>
+    <p>Failure - 422 Unprocessable Entity</p>
+    <pre><code class="lang-json">{ <span class="hljs-attribute">error</span>: <span class="hljs-string">"Password confirmation did not match"</span> }</code></pre>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Push Notifications</h2>
+    <p class="mb-4">Registering for Push Notifications happens when the user is signed in.</p>
+    <p class="mb-4">The Backend needs NotificationToken model to store the token and platform for push notifications.</p>
+    <pre class="mb-4"><code class="lang-bash">rails g model NotificationToken user:belongs_to <span class="hljs-built_in">platform</span> <span class="hljs-keyword">token</span></code></pre>
+
+    <p class="mb-4">An API endpoint for notification tokens should:</p>
+    <ul class="mb-4">
+      <li>Respond to <code>POST /api/v1/notification_tokens</code></li>
+      <li>Use <code>Authorization</code> header to authenticate user with API token</li>
+      <li>Accept params:<ul>
+          <li><code>token</code> - device notification token</li>
+          <li><code>platform</code> - platform of device (iOS, Android)</li>
+        </ul>
+      </li>
+      <li>Find or create NotificationToken record for user with params</li>
+      <li>Return 200 OK if successful</li>
+    </ul>
+  </div>
+</div>

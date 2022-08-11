@@ -1,0 +1,40 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="w-full mb-4 lg:w-1/4 lg:p-4">
+    <%= render partial: "shared/account_navbar" %>
+  </div>
+
+  <div class="w-full lg:w-3/4 lg:p-4">
+    <div class="lg:p-10 p-4 bg-white rounded-lg border border-gray-200">
+      <h1 class="h3 mb-2"><%= t(".title") %></h1>
+
+      <% if account_admin?(current_account, current_user) %>
+        <h5 class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t(".subscriptions") %></h5>
+        <% if @subscriptions.any? %>
+          <%= render partial: "subscriptions/subscription", collection: @subscriptions %>
+        <% else %>
+          <div class="flex">
+            <div class="flex-1 mt-2 text-gray-700"><%= t ".not_subscribed" %></div>
+            <div><%= link_to t(".choose_plan"), pricing_path, class: "btn btn-primary" %></div>
+          </div>
+        <% end %>
+
+        <% if @payment_processor %>
+          <%= render "subscriptions/payment_method", payment_processor: @payment_processor %>
+        <% end %>
+
+        <% if Jumpstart.config.collect_billing_address? %>
+          <%= render "subscriptions/billing_address", billing_address: @billing_address %>
+        <% end %>
+
+        <%# Paddle: Extra payment details live in Paddle, not our app %>
+        <% unless @payment_processor&.paddle? %>
+          <%= render partial: "subscriptions/billing_info" %>
+        <% end %>
+
+        <%= render partial: "subscriptions/charges" %>
+      <% else %>
+        <p><%= t(".contact_admin", account: current_account.name) %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="max-w-7xl mx-auto mt-12 p-8 bg-white rounded shadow">
+  <h3><%= t ".title" %></h3>
+
+  <div class="my-8">
+    <h4><%= @subscription.plan.name %></h4>
+    <div class="mb-2 text-lg">
+      <%= @subscription.amount_with_currency %>
+      <% if @subscription.plan.unit? %>per <%= @subscription.plan.unit %><% end %>
+      / <%= @subscription.plan.interval %>
+    </div>
+
+    <% if @subscription.quantity > 1 %>
+      <div><%= t(".quantity", quantity: @subscription.quantity, price: @subscription.plan.amount_with_currency) %></div>
+    <% end %>
+  </div>
+
+  <div class="flex-1 mt-2 mb-4 text-gray-700">
+    <div class="font-bold"><%= t ".description", product: Jumpstart.config.application_name %></div>
+  </div>
+
+  <div class="text-xl mb-4">
+    <%= l Time.at(@invoice.period_start).to_date, format: :long %> - <%= l Time.at(@invoice.period_end).to_date, format: :long %>
+  </div>
+  <table class="min-w-full divide-y divide-gray-300">
+    <thead class="text-left">
+      <th class="p-3"><%= t ".line_items.description" %></th>
+      <th class="p-3 text-right"><%= t ".line_items.quantity" %></th>
+      <th class="p-3 text-right"><%= t ".line_items.unit_price" %></th>
+      <th class="p-3 text-right"><%= t ".line_items.total" %></th>
+    </thead>
+    <tbody>
+      <% @invoice.lines.auto_paging_each do |line_item| %>
+        <tr class="border-b border-gray-200">
+          <td class="p-3"><%= line_item.description %></td>
+          <td class="p-3 text-right"><%= line_item.quantity %></td>
+          <td class="p-3 text-right"><%= Pay::Currency.format (line_item.price.unit_amount_decimal || line_item.price.unit_amount), currency: line_item.price.currency %></td>
+          <td class="p-3 text-right"><%= Pay::Currency.format line_item.amount, currency: line_item.price.currency %></td>
+        </tr>
+      <% end %>
+
+      <tr>
+        <td class="pt-3 px-3 text-right font-semibold" colspan="3">Subtotal</td>
+        <td class="pt-3 px-3 text-right"><%= Pay::Currency.format @invoice.subtotal, currency: @invoice.currency %></td>
+      </tr>
+
+      <tr>
+        <td class="py-1 px-3 text-right font-semibold" colspan="3">Tax</td>
+        <td class="py-1 px-3 text-right"><%= Pay::Currency.format @invoice.tax, currency: @invoice.currency %></td>
+      </tr>
+
+      <tr>
+        <td class="py-1 px-3 text-right font-semibold" colspan="3">Total</td>
+        <td class="py-1 px-3 text-right font-semibold"><%= Pay::Currency.format @invoice.total, currency: @invoice.currency %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="mt-8 flex justify-between items-center">
+    <%= link_to t(".back"), subscriptions_path, class: "btn btn-light-gray" %>
+  </div>
+</div>

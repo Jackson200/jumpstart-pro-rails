@@ -1,0 +1,69 @@
+<% classes = "block py-0.5 px-2 -mx-2 rounded no-underline text-gray-800 hover:bg-gray-100 hover:text-gray-800" %>
+<% active_class = "bg-gray-200" %>
+<% inactive_class = "" %>
+
+<div class="w-full text-sm font-medium">
+  <%= link_to image_tag("jumpstart-docs-logo.svg"), root_path, class: "block" %>
+
+  <%= link_to "Back to the app", main_app.root_path, class: "block text-sm mt-4 py-1 text-gray-900" %>
+  <%= link_to "Configuration", root_path, class: "block text-sm py-1 text-gray-900", target: :_blank %>
+
+  <h4 class="mt-4 font-semibold mb-1 text-gray-800">Get Started</h4>
+  <ul class="list-none leading-loose">
+    <li><%= nav_link_to "Installation", installation_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Configuration", configuration_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Upgrades", upgrading_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Deploying", deploying_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Screencasts", screencasts_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+  </ul>
+
+  <h4 class="mt-4 font-semibold mb-1 text-gray-800">Backend</h4>
+  <ul class="list-none leading-loose">
+    <li><%= nav_link_to "Accounts & Multitenancy", accounts_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Action Cable", action_cable_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Action Mailbox", action_mailbox_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Action Text", action_text_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Active Storage", active_storage_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Admin", admin_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Announcements", announcements_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "API", api_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Authentication", authentication_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Background Workers", background_workers_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Billing & Payments", billing_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Credentials", credentials_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Cron & Scheduled Jobs", cron_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Databases", databases_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Development", development_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Email", email_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Internationalization (I18n) ", i18n_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Notifications", notifications_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Scaffolds", scaffolds_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Users", users_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+  </ul>
+
+  <h4 class="mt-4 font-semibold mb-1 text-gray-800">Frontend</h4>
+  <ul class="list-none leading-loose">
+    <li><%= nav_link_to "Alerts & Notices", alerts_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Branding", branding_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Buttons", buttons_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Cards", cards_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Forms", forms_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Icons", icons_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "JavaScript", javascript_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Pagination", pagination_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Pills", pills_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "TailwindCSS", tailwind_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Typography", typography_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+    <li><%= nav_link_to "Wells", wells_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+  </ul>
+
+  <h4 class="mt-4 font-semibold mb-1 text-gray-800">Extras</h4>
+  <ul class="list-none leading-loose">
+    <li><%= nav_link_to "Integrations", integrations_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+  </ul>
+
+  <h4 class="mt-4 font-semibold mb-1 text-gray-800">Turbo Native (iOS & Android)</h4>
+  <ul class="list-none leading-loose">
+    <li><%= nav_link_to "Existing Apps", existing_apps_docs_path, class: classes, active_class: active_class, inactive_class: inactive_class %></li>
+  </ul>
+</div>

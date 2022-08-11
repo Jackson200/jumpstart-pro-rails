@@ -1,0 +1,43 @@
+<div class="field-unit__label">
+  <%= f.label field.attribute %>
+</div>
+
+<div class="field-unit__field">
+  <% Array.wrap(f.object.send(field.attribute)).each do |item| %>
+    <div class="row">
+    <%= text_field_tag "#{f.object_name}[#{field.attribute}][]", item %>
+      <%= link_to "Remove", "#", data: { behavior: "remove-item" } %>
+    </div>
+  <% end %>
+
+  <%= link_to "Add", "#", data: { behavior: "add-item" } %>
+</div>
+
+<template id="item-template">
+  <div class="row">
+    <%= text_field_tag "#{f.object_name}[#{field.attribute}][]" %>
+    <%= link_to "Remove", "#", data: { behavior: "remove-item" } %>
+  </div>
+</template>
+
+<script>
+  function removeItem(e) {
+    if (e.target.dataset.behavior === "remove-item") {
+      e.preventDefault()
+      e.target.closest(".row").remove()
+    }
+  }
+
+  function addItem(e) {
+    if (e.target.dataset.behavior === "add-item") {
+      e.preventDefault()
+
+      var template = document.querySelector("#item-template").innerHTML
+      e.target.insertAdjacentHTML('beforebegin', template)
+    }
+  }
+
+  document.addEventListener("click", addItem)
+  document.addEventListener('click', removeItem)
+</script>
+

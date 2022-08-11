@@ -1,0 +1,51 @@
+--- !ruby/object:Jumpstart::Configuration
+application_name: Jumpstart
+background_job_processor: sidekiq
+email_provider: sendgrid
+omniauth_providers:
+- :facebook
+- :twitter
+payment_processors:
+- :stripe
+- :paypal
+- :braintree
+plans:
+  - id: 1
+    name: Basic
+    interval: month
+    stripe_id: default
+    braintree_id: default
+    amount: 29
+    features:
+      - Feature 1
+      - Feature 2
+      - Feature 3
+  - id: 2
+    name: Basic
+    interval: year
+    stripe_id: basic-yearly
+    amount: 290
+    features:
+      - Feature 1
+      - Feature 2
+      - Feature 3
+  - id: 3
+    name: Advanced
+    interval: month
+    stripe_id: big
+    braintree_id: big
+    amount: 29
+    features:
+      - Feature 1
+      - Feature 2
+      - Feature 3
+  - id: 4
+    name: Advanced
+    interval: year
+    stripe_id: advanced-yearly
+    braintree_id: yearly-big
+    amount: 290
+    features:
+      - Feature 1
+      - Feature 2
+      - Feature 3

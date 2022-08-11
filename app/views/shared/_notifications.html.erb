@@ -1,0 +1,32 @@
+<%= tag.div class: "z-10 mr-4 inline-flex items-center align-middle leading-none rounded no-underline hover:bg-white",
+  data: {
+    controller: "notifications",
+    notifications_account_id_value: current_account.id,
+    notifications_account_unread_value: @account_unread,
+    notifications_total_unread_value: @total_unread,
+  } do %>
+
+  <div class="relative" data-controller="dropdown">
+    <%# Marks all notifications as read when menu opens by default. Remove the notifications Stimulus actions to disable this. %>
+    <%= tag.button class: "inline-block select-none",
+      aria: { label: "Notifications" },
+      data: {
+        action: "click->notifications#open touch->notifications#open click->dropdown#toggle click@window->dropdown#hide touch->dropdown#toggle touch@window->dropdown#hide"
+      } do %>
+      <span class="appearance-none flex items-center inline-block relative text-gray-500 hover:text-gray-800">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+        </svg>
+        <span data-notifications-target="badge" class="hidden absolute top-0 right-0 block h-2 w-2 transform -translate-y-1/2 translate-x-1/2 rounded-full text-white shadow-solid bg-red-500"></span>
+      </span>
+    <% end %>
+
+    <div data-dropdown-target="menu" class="lg:absolute lg:right-0 mt-2 hidden z-20">
+      <div class="bg-white shadow rounded border border-gray-200 overflow-hidden sm:w-96">
+        <%= turbo_frame_tag "notifications", loading: :lazy, target: :_top, src: notifications_path, data: { notifications_target: "list" } do %>
+          <p class="p-4"><i class="fas fa-circle-notch fa-spin text-gray-400 mr-1"></i> Loading...</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<% content_for :section_title, "Upgrades" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">You can clone Jumpstart Pro from our Git repository and merge updates at any time.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Installing Jumpstart Pro with Git</h2>
+    <p class="mb-4 text-gray-700">The Git version of Jumpstart Pro allows you to easily merge in changes from newer versions whenever you like. We use GitHub for our Git hosting, so you'll need an account to clone the repository.</p>
+
+    <p class="mb-4 text-gray-700">1. Connect your GitHub account on JumpstartRails.com</p>
+
+    <p class="mb-4 text-gray-700">2. Click "Use this template" on the GitHub repository to create a new repository using this template.</p>
+
+    <img class="mb-8 max-w-full sm:max-w-xl" src="https://p198.p4.n0.cdn.getcloudapp.com/items/5zuBkj0e/63dd316b-bef2-461b-887a-a789255336fc.png?v=8262ae3013a8e06f821f361e3583a294" loading="lazy" />
+
+    <p class="text-gray-700 font-brand-semibold mb-4">You're all set!</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-200">Merging Updates</h2>
+    <p class="mb-4 text-gray-700">First, we need to add a remote for the Jumpstart Pro repository.</p>
+    <pre><code>git remote add jumpstart git@github.com:jumpstart-pro/jumpstart-pro.git</code></pre>
+
+    <p class="mb-4 text-gray-700">To merge updates, use git merge from the <code>jumpstart</code> origin.</p>
+    <pre><code>git fetch jumpstart
+git merge jumpstart/master --allow-unrelated-histories</code></pre>
+
+    <p class="text-gray-700">Keep in mind, the more customization you do, the harder merges will be. Instead of merging from jumpstart, you might want to cherry pick commits or manually apply changes to you repository.</p>
+  </div>
+</div>

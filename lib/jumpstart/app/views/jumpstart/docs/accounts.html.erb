@@ -1,0 +1,108 @@
+<% content_for :section_title, "Accounts" %>
+
+<div class="mb-10">
+  <p class="text-xl leading-normal text-gray-700">Accounts are a core piece of functionality for many applications these days and Jumpstart comes preconfigured with them so you don't have to do any of the heavy lifting.</p>
+</div>
+
+<div class="pb-10 mb-10 border-b border-gray-300">
+  <h3 class="pb-2 mb-2 h2">Personal Account</h3>
+
+  <p class="mb-4 leading-normal">Every user has a personal account they are an admin of. A personal account does not allow other users on it. This allows our code to work exactly the same whether we're adding resources privately for a user or a account of users.</p>
+  <p class="mb-4 leading-normal">GitHub is a great example of this case. Repositories can be personal or on an organization (their name for accounts) and by setting them up this way, we can have our code treat them exactly the same.</p>
+  <p class="mb-4 leading-normal">
+    There is a configuration option that can be found at <%= link_to "http://localhost:3000/jumpstart#accounts", accounts_docs_path %> if you have the server running. In the first section labeled Accounts, there is a checkbox for enabling/disabling personal accounts. If checked, every new user that signs up for your application will be given a personal account by default. This happens via an <code>after_create</code> callback that comes from the <code>UserAccounts</code> concern which is included in the <code>User.rb</code> class:
+  </p>
+  <pre class="mb-0">
+    <code>
+      # app/models/concerns/user_accounts.rb
+      after_create :create_default_account, unless: :skip_default_account?
+    </code>
+  </pre>
+  <p class="mb-4 leading-normal">
+    After a new user record has been successfully created, this callback will be called and a personal account will be created for the new user unless you have disabled this feature in the Jumpstart configuration for your application via the checkbox mentioned previously at <%= link_to "http://localhost:3000/jumpstart#accounts", accounts_docs_path %>
+  </p>
+  <p class="mb-4 leading-normal">
+    With this in place, when an existing user creates a new account it will use the default setting of <code>personal: false</code>, which is setup in the migration for the <code>accounts</code> table:
+  </p>
+  <pre><code>t.boolean "personal", default: false</code></pre>
+</div>
+
+<div class="pb-10 mb-10 border-b border-gray-300">
+  <h3 class="pb-2 mb-2 h2">Additional Accounts</h3>
+
+  <p class="mb-4 leading-normal">Users can create additional accounts and invite other users to join them. Once created, users can switch which account they're viewing from their account dropdown in the navbar.</p>
+  <p class="mb-4 leading-normal">Each account has separate billing, which allows you to setup flexible subscriptions based upon the account. This is also similar to GitHub where you can pay for a personal account or you can pay for an organization account.</p>
+  <p class="mb-4 leading-normal">If you don't want to use the accounts functionality, you can simply remove links to the accounts. We encourage you to keep the accounts functionality around  as it allows you flexibility in the future should you choose to implement accounts later on.</p>
+</div>
+
+<div class="pb-10 mb-10 border-b border-gray-300">
+  <h3 class="pb-2 mb-2 h2">Account Roles</h3>
+
+  <p class="mb-4 leading-normal">Users can be assigned a role for each account they are a part of. By default, we only provide an <code>admin</code> role, but you can add more roles in <code>app/models/account_user.rb</code>. These roles will be listed in the UI when adding or editing a account member. You should not use a reserved word (like "user") as the name of a role; this will cause an error when attempting to create an account.</p>
+  <p class="mb-4 leading-normal">You can check the role on the account member to restrict access to certain functionality on the account as needed.</p>
+
+  <p class="mb-4 leading-normal">To access the current account member or roles, you can use the following helpers in your controllers and views:</p>
+
+  <pre><code>current_account_user #=> AccountUser
+current_roles #=> [:admin]</code></pre>
+
+  <p class="mb-4 leading-normal">You can also access the roles individually on the AccountUser model:</p>
+
+  <pre><code>account_user = AccountUser.new
+account_user.admin? #=> false
+account_user.admin = true
+account_user.admin? #=> true
+account_user.active_roles #=> [:admin]</code></pre>
+</div>
+
+<div class="pb-10 mb-10 border-b border-gray-300">
+  <h3 class="pb-2 mb-2 h2">Multitenancy</h3>
+
+  <p class="mb-4 leading-normal">By popular request, we support "multitenancy" by selecting the current account and scoping all model queries to the set account. We're using the <%= link_to "acts_as_tenant", "https://github.com/ErwinM/acts_as_tenant", target: :_blank %> gem to power this feature.</p>
+  <p class="mb-4 leading-normal">Multitenancy is optional and must be opted in for each model that you want scoped to tenants. Any models without multitenancy will be globally available. We recommend you keep Users, Accounts, etc globally available outside tenants.</p>
+  <p class="mb-4 leading-normal">To scope a resource to a tenant, make sure your model has an <code>account_id:integer</code> column in the database.</p>
+  <p class="mb-4 leading-normal">Then you can add <code>acts_as_tenant :account</code> to the model.</p>
+
+  <pre><code>class Project
+  acts_as_tenant :account
+end</code></pre>
+
+  <p class="mb-4 leading-normal">This will automatically add a </code>belongs_to :account</code> association and scope all queries on the model to the current account. <code>Project.all</code> will produce the same results as <code>current_account.projects</code>.</p>
+  <p class="mb-4 leading-normal">If current_account is <code>nil</code>, then all records will be returned. This can be changed to raise an exception if current account is nil by adding this initializer:</p>
+
+  <pre><code># config/initializers/acts_as_tenant.rb
+
+ActsAsTenant.configure do |config|
+  config.require_tenant = true
+end</code></pre>
+
+  <p class="mb-4 leading-normal">By enabling this feature, you will receive a <code>ActsAsTenant::NoTenant</code> when calling <code>Project.all</code> instead.</p>
+</div>
+
+<div class="pb-10 mb-10">
+  <h3 class="pb-2 mb-2 h2">Account Switching</h3>
+  <p class="mb-4 leading-normal">A user can switch which account they are viewing by clicking on the accounts in the navbar.</p>
+  <p class="mb-4 leading-normal">There are several different ways users can switch between accounts:</p>
+
+  <ul class="mb-4">
+    <li>Session cookies <span class="text-sm text-gray-700">(default)</span></li>
+    <li>Path <code class="text-sm">/:account_id/</code></li>
+    <li>Subdomain</li>
+    <li>Custom Domain</li>
+  </ul>
+
+  <p class="mb-4 leading-normal">Each of these options provides some flexibility for how accounts can be accessed:</p>
+  <p class="mb-4 leading-normal"><em>Session cookies</em> are the simplest and require no additional configuration.</p>
+  <p class="mb-4 leading-normal"><em>Path</em> switching prepends all routes with the current account ID. This is called the <code>script_name</code> and is filtered out in a Rails middleware automatically. To change accounts, you must provide the script name in the URL helpers: <code>link_to "Home", root_url(script_name: "/#{account.id}"</code></p>
+  <p class="mb-4 leading-normal"><em>Subdomain</em> switching uses the first subdomain to determine the account. This requires wildcard DNS records to point <code>*.example.com</code> to your app and additional setup in your test suite to configure the host when making requests.</p>
+  <p class="mb-4 leading-normal"><em>Custom Domain</em> allows your users to provide their own domain to use your app. This requires customers to setup DNS records to point to your server. You'll also have to respond to these and make sure you generate SSL certificates for these domains. Since you cannot guarantee the user will setup their DNS records correctly, this option often is used in conjunction with subdomain switching to provide a fallback method of accessing the account.</p>
+
+  <h4>Single log in across all sub domains</h4>
+  <p class="mb-4 leading-normal">By default, users will be required to enter their credentials for each of their subdomains. If instead you want them to log a single time and have access to all their subdomains, add these two lines:</p>
+  <pre><code>
+    # config/application.rb
+    config.session_store :cookie_store, :key => '_some_key', :domain => '.lvh.me'
+    # config/environments/test.rb
+    config.session_store :cookie_store, :key => '_some_key', :domain => '.example.com'
+  </code></pre>
+</div>

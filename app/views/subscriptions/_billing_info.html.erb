@@ -1,0 +1,28 @@
+<h5 class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t(".extra_billing_info") %></h5>
+
+<div class="mb-8 flex gap-8" data-controller="toggle">
+  <div class="flex-1">
+    <div class="text-gray-700 mt-2"><%= t ".additional_information" %></div>
+
+    <%= form_with model: current_account, url: info_subscriptions_path, html: { class: "hidden mt-4 max-w-lg", data: { toggle_target: "toggleable" }} do |f| %>
+      <div class="form-group">
+        <%= f.label :extra_billing_info %>
+        <%= f.text_area :extra_billing_info, class: "form-control", placeholder: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.button t(".save_info"), class: "btn btn-primary", data: { disable_with: disable_with(t(".saving"))} %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= link_to t(".add_info"), "#", class: "btn btn-light-gray", data: { action: "click->toggle#toggle" } %>
+  </div>
+</div>
+
+<% if current_account.extra_billing_info? %>
+  <blockquote class="mt-4 mb-8 text-gray-600 border-l-4 border-gray-200 px-4 font-mono text-sm">
+    <%= current_account.extra_billing_info %>
+  </blockquote>
+<% end %>

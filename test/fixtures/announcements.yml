@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: announcements
+#
+#  id           :bigint           not null, primary key
+#  kind         :string
+#  published_at :datetime
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kind: MyString
+  title: MyString
+  published_at: 2019-04-09 17:21:27
+
+two:
+  kind: MyString
+  title: MyString
+  published_at: 2019-04-09 17:21:27

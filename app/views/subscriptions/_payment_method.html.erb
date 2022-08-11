@@ -1,0 +1,16 @@
+<h5 class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t(".payment_method") %></h5>
+
+<div class="mb-8 lg:flex lg:gap-8">
+  <div class="flex-1 my-4">
+    <% if (payment_method = payment_processor&.default_payment_method) %>
+      <i class="fab fa-cc-<%= payment_method.brand.downcase %> text-gray-700"></i>
+      <%= payment_method_details(payment_method) %>
+    <% else %>
+      <p class="text-gray-700"><%= t ".no_payment_method" %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= link_to t(".update_payment_method"), new_payment_method_path, class: "btn btn-light-gray" unless payment_processor.paddle? && !show_paddle_payment_method_form?(payment_processor) %>
+  </div>
+</div>

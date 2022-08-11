@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label>Transactional Email Service</label>
+  <p class="form-hint">This will only be configured for production use.</p>
+  <%= f.select :email_provider, Jumpstart::Configuration::Mailable::AVAILABLE_PROVIDERS, { include_blank: "None" }, { class: "form-control" } %>
+</div>
+
+<div class="form-group">
+  <%= f.label :domain %>
+  <p class="form-hint">We'll use this domain to generate links inside emails.</p>
+  <%= f.text_field :domain, placeholder: "support@example.com", class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :default_from_email %>
+  <p class="form-hint">When sending emails, we'll send them from this email address by default unless you override it in the mailer.</p>
+  <%= f.text_field :default_from_email, class: "form-control" %>
+</div>

@@ -1,0 +1,22 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="w-full mb-4 lg:w-1/4 lg:p-4">
+    <%= render partial: "shared/account_navbar" %>
+  </div>
+
+  <div class="w-full lg:w-3/4 lg:p-4">
+    <div class="p-4 bg-white rounded-lg border border-gray-200 lg:p-10">
+      <div class="mb-4 flex items-center">
+        <%= account_avatar @account, class: "flex-shrink-0 rounded-full mr-4 h-8 w-8" %>
+        <h1 class="h3">
+          <%= link_to @account.name, @account, class: "text-black" %>
+          <%= render_svg "icons/cheveron-right", styles: "fill-current icon-sm text-gray-600 inline-block" %>
+          <%= t(".title") %>
+        </h1>
+      </div>
+
+      <%= render 'form', account: @account %>
+    </div>
+
+    <%= render "accounts/transfers/form", account: @account if @account.can_transfer?(current_user) %>
+  </div>
+</div>

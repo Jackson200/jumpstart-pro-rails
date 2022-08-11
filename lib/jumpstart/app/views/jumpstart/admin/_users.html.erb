@@ -1,0 +1,16 @@
+<h3>Create an Admin User</h3>
+<p>Admin users have access to the admin dashboard. They're marked in the database with the <code>admin</code> flag set to true.</p>
+
+<table class="table table-bordered text-left my-6">
+  <thead>
+    <tr>
+      <th class="border-b border-gray-200 bg-gray-100 text-gray-600 font-bold text-sm px-3 py-2">Name</th>
+      <th class="border-b border-gray-200 bg-gray-100 text-gray-600 font-bold text-sm px-3 py-2">Email</th>
+    </tr>
+  </thead>
+  <tbody id="admin_users">
+    <%= render partial: "jumpstart/users/user", collection: User.where(admin: true).order(created_at: :asc), as: :user %>
+  </tbody>
+</table>
+
+<a class="cursor-pointer btn btn-primary outline" onclick="Rails.fire(document.querySelector('#show_admin_user_form'), 'click')">Create Admin User</a>

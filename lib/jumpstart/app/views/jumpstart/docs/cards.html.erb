@@ -1,0 +1,63 @@
+<% content_for :section_title, "Cards" %>
+
+<div class="mb-10">
+  <h4 class="uppercase text-gray-700 tracking-wide font-semibold text-xs border-b border-gray-400 pb-3 mb-3">Basic</h4>
+
+  <%= render "jumpstart/docs/snippet" do %>
+<div class="border border-gray-400 rounded p-8 my-8">
+  <h3>Card title</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+</div>
+  <% end %>
+</div>
+
+<div class="mb-10">
+  <h4 class="uppercase text-gray-700 tracking-wide font-semibold text-xs border-b border-gray-400 pb-3 mb-3">Basic Call To Action</h4>
+
+  <%= render "jumpstart/docs/snippet" do %>
+<div class="border border-gray-400 rounded p-8 my-8">
+  <div class="flex flex-wrap items-center justify-between">
+    <div class="lg:flex-1">
+      <h3>Card title</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+    </div>
+    <div class="lg:p-0 pt-4">
+      <%= link_to "Button", "", class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+  <% end %>
+</div>
+
+<div class="mb-10">
+  <h4 class="uppercase text-gray-700 tracking-wide font-semibold text-xs border-b border-gray-400 pb-3 mb-3">With Image</h4>
+
+  <%= render "jumpstart/docs/snippet" do %>
+<div class="border border-gray-400 rounded my-8 lg:w-1/2 w-full">
+  <div class="image-placeholder">
+    <%= render_svg "icons/photo", styles: "fill-current text-gray-500 icon-xl" %>
+  </div>
+  <div class="p-6">
+    <h3>Card title</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+  </div>
+</div>
+  <% end %>
+</div>
+
+<div class="mb-10">
+  <h4 class="uppercase text-gray-700 tracking-wide font-semibold text-xs border-b border-gray-400 pb-3 mb-3">With Image and Buttons</h4>
+
+  <%= render "jumpstart/docs/snippet" do %>
+<div class="border border-gray-400 rounded my-8 lg:w-1/2 w-full">
+  <div class="image-placeholder">
+    <%= render_svg "icons/photo", styles: "fill-current text-gray-500 icon-xl" %>
+  </div>
+  <div class="p-6">
+    <h3>Card title</h3>
+    <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+    <%= link_to "Button", "#", class: "btn btn-primary btn-small" %>
+  </div>
+</div>
+  <% end %>
+</div>

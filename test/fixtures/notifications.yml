@@ -1,0 +1,36 @@
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id             :bigint           not null, primary key
+#  interacted_at  :datetime
+#  params         :jsonb
+#  read_at        :datetime
+#  recipient_type :string           not null
+#  type           :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  account_id     :integer          not null
+#  recipient_id   :integer          not null
+#
+# Indexes
+#
+#  index_notifications_on_account_id                       (account_id)
+#  index_notifications_on_recipient_type_and_recipient_id  (recipient_type,recipient_id)
+#
+
+one:
+  account: one
+  recipient: one
+  recipient_type: Recipient
+  type:
+  params:
+  read_at: 2020-07-26 15:19:32
+
+two:
+  account: two
+  recipient: two
+  recipient_type: Recipient
+  type:
+  params:
+  read_at: 2020-07-26 15:19:32

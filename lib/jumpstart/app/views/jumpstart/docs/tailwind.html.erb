@@ -1,0 +1,35 @@
+<% content_for :section_title, "TailwindCSS" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="leading-normal text-xl mb-4">Use this system as a starting point for your own template. We created a set of UI components commonly seen in the wild. Tailor them and/or your Tailwind configuration to meet your own needs</p>
+    <p class="leading-normal mb-4">To the left are sections of components and their relative code snippets. You're welcome to change anything to match your own branding.</p>
+  </div>
+
+  <div class="mb-10">
+    <h3 class="text-gray-800 mb-4">Tailwind CSS</h3>
+    <p class="leading-normal mb-4">Jumpstart Pro utilizes <a class="link" href="https://tailwindcss.com" target="_blank">Tailwind CSS</a> as a utility-first approach towards designing an application. Refer to the documentation to understand how it works and to configure for your own needs.</p>
+    <p class="leading-normal mb-4">TailwindCSS is configured to automatically purge styles and watches your Rails helpers, views, and Javascript files for CSS classes.</p>
+    <p class="leading-normal mb-4">The official TailwindCSS plugins are included by default:</p>
+    <ul class="mb-4">
+      <li><%= link_to "@tailwindcss/aspect-ratio", "https://github.com/tailwindlabs/tailwindcss-aspect-ratio", target: :_blank %></li>
+      <li><%= link_to "@tailwindcss/forms", "https://github.com/tailwindlabs/tailwindcss-forms", target: :_blank %></li>
+      <li><%= link_to "@tailwindcss/line-clamp", "https://github.com/tailwindlabs/tailwindcss-line-clamp", target: :_blank %></li>
+      <li><%= link_to "@tailwindcss/typography", "https://github.com/tailwindlabs/tailwindcss-typography", target: :_blank %></li>
+    </ul>
+    <p class="leading-normal mb-4">Be sure to modify the <code>tailwind.config.js</code> file to include any additional colors, fonts, and other customizations.</p>
+  </div>
+
+  <div class="mb-10">
+    <h3 class="text-gray-800 mb-4">How to Use Tailwind UI with Jumpstart Pro</h3>
+    <p class="leading-normal mb-4"><%= link_to "TailwindUI", "https://tailwindui.com", target: :_blank %> is a set of components you can purchase from the TailwindCSS team. It's a wonderful complement to Jumpstart Pro for adding beautifully designed cards, layouts, and other components to your application.</p>
+    <p class="leading-normal mb-4">Simply copy and paste TailwindUI components into your Jumpstart Pro application. There is no additional configuration needed to use TailwindUI components.</p>
+    <p class="leading-normal mb-4">Jumpstart Pro includes default styles for HTML elements to provide a nice experience with or without TailwindUI. Some of these styles may conflict with TailwindUI components, so you may need additional classes applied to override these default styles. You can also comment out the default styles in the CSS files if you would like to take that approach instead.</p>
+
+    <div class="w-full xl:w-1/2">
+      <div class="embed-container">
+        <iframe src="https://www.youtube.com/embed/jmyAe_s6Wy8" title="How to use TailwindUI with Jumpstart Pro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>

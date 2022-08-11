@@ -1,0 +1,23 @@
+<h5 id="billing-address" class="text-gray-700 font-semibold my-4 border-b border-gray-200 pb-2"><%= t(".billing_address") %></h5>
+
+<div class="mb-8 lg:flex lg:gap-8">
+  <div class="flex-1 my-4">
+    <% if billing_address %>
+      <div class="text-gray-700">
+        <%= render billing_address %>
+      </div>
+    <% else %>
+      <p class="text-gray-700">
+        <%= t(".no_billing_address")%>
+      </p>
+    <% end %>
+  </div>
+
+  <div>
+    <% if billing_address %>
+      <%= link_to t(".update_billing_address"), edit_billing_address_path, class: "btn btn-light-gray" %>
+    <% else %>
+      <%= link_to t(".add_billing_address"), new_billing_address_path, class: "btn btn-light-gray" %>
+    <% end %>
+  </div>
+</div>

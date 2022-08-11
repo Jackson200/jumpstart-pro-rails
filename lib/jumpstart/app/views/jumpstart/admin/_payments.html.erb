@@ -1,0 +1,70 @@
+<div class="form-group">
+  <h5>Pay Gem</h5>
+  <p>Payments are implemented using <%= link_to "the Pay gem", "https://github.com/pay-rails/pay", target: :_blank %>. Check out the readme to learn how to customize your payments.</p>
+
+  <hr class="my-4" />
+
+  <h5 class="mb-3">Payment Processors</h5>
+
+  <div>
+    <label>
+      <%= check_box_tag "configuration[payment_processors][]", :stripe, @config.stripe?, class: "form-checkbox", id: :stripe %>
+      Stripe
+      <small class="text-gray-600">SCA payments supported</small>
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <%= check_box_tag "configuration[payment_processors][]", :paypal, @config.paypal?, class: "form-checkbox", id: :paypal %>
+      Paypal
+      <small class="text-gray-600">Uses Braintree behind the scenes</small>
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <%= check_box_tag "configuration[payment_processors][]", :braintree, @config.braintree?, class: "form-checkbox", id: :braintree %>
+      Braintree
+      <small class="text-gray-600">Accepts both credit cards and PayPal</small>
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <%= check_box_tag "configuration[payment_processors][]", :paddle, @config.paddle?, class: "form-checkbox", id: :paddle %>
+      Paddle
+      <small class="text-muted">SCA supported, Merchant of Record, accepts both credit cards and PayPal</small>
+    </label>
+  </div>
+</div>
+
+<hr class="my-4" />
+<h5>Billing Address</h5>
+<p class="text-sm text-gray-700">Enable this to collect a billing address during checkout. You might need this for Stripe Tax or other features.</p>
+
+<label class="mt-2">
+  <%= f.check_box :collect_billing_address, checked: @config.collect_billing_address? %>
+  Collect billing address during checkout
+</label>
+
+<hr class="my-4" />
+
+<p class="mb-2">You'll also need to add your API keys to the Rails credentials for each environment.</p>
+<pre><code class="bash rounded">rails credentials:edit --environment development
+rails credentials:edit --environment test
+rails credentials:edit --environment staging
+rails credentials:edit --environment production</code></pre>
+
+<hr class="my-4" />
+
+<h5>Plans</h5>
+<p>To add plans, visit <%= link_to "the Plans page", main_app.admin_plans_path, target: :blank %> in the admin.</p>
+<p class="small text-gray-600"><strong>Don't forget!</strong> You need to be <%= link_to "signed in", main_app.new_user_session_path %> as an admin to view the Plans page in the admin area. <%= link_to "Create an admin user.", "#users", data: { toggle: "pill" } %></p>
+
+<hr class="my-4" />
+
+<h5>Stripe CLI</h5>
+<p>To properly generate charges and subscription updates for SCA payments, you'll need to install and run the Stripe CLI in development to forward these webhooks to the local server.</p>
+
+<pre><code>stripe listen --forward-to localhost:3000/webhooks/stripe</code></pre>

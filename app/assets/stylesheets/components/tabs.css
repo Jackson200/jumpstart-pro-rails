@@ -1,0 +1,16 @@
+.tab-active {
+  background: linear-gradient(116deg, #3957F4 22%, #2F87EE 90%);
+  border-radius: 4px 4px 0px 0px;
+
+  a {
+    @apply text-white;
+
+    &:hover,
+    &:focus {
+      background: linear-gradient(308deg, #3957F4 24%, #2F87EE 80%);
+      border-radius: 4px 4px 0px 0px;
+
+      @apply text-gray-300;
+    }
+  }
+}

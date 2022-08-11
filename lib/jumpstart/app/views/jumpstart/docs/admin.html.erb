@@ -1,0 +1,25 @@
+<% content_for :section_title, "Admin" %>
+
+<div class="mb-20">
+  <div class="mb-10">
+    <p class="mb-4 text-xl text-gray-700 leading-normal">Jumpstart Pro ships with an admin area for browsing and managing your application and users.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Admin Area &amp; Dashboard</h2>
+    <p class="mb-4">The Jumpstart Pro admin area is a great place to take a peek into your application. You can access any of the models you have generated a dashboard for and provide customer support easily through it.</p>
+    <p class="mb-4">A dashboard is provided in the admin so you can see important metrics. By default, we show you details about your total and recent revenue and the number of users and active subscriptions to your product. You can customize this to add your own metrics as you build your application.</p>
+
+    <p class="mb-4">The admin area is available at <%= link_to "/admin", "/admin", target: :_blank, class: "text-blue-500 underline" %> and <em>only</em> accessible to admin users of your application.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Admin Users</h2>
+    <p class="mb-4">Users have a flag on the model named <code>admin</code>. When <code>admin</code> is true, the user will have access to <code>/admin</code> and a link will appear in the navigation when they are logged in.</p>
+    <p class="mb-4">For security, the <code>/admin</code> url returns a 404 for non-admins.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Impersonation / Masquerading / Logging in as another user</h2>
+    <p class="mb-4">You may login as another user by visiting the user in the Admin and clicking the "Login As User" button. A banner will appear at the top of the site noting that you're logged in as another user.</p>
+    <p class="mb-4">To stop impersonating the user, simply click the "Logout" link in the impersonation banner.</p>
+
+    <h2 class="pb-3 mb-6 border-b border-gray-400">Using Administrate</h2>
+    <p class="mb-4">To generate an admin dashboard for a model, you can run <code>rails g administrate:dashboard MODEL_NAME</code>.</p>
+    <p class="mb-4">Check out the <%= link_to "GoRails screencast episodes on Administration", "https://gorails.com/episodes/tagged/Administration", target: :_blank, class: "text-blue-500" %> and the <%= link_to "Administrate GitHub", "https://github.com/thoughtbot/administrate", target: :_blank, class: "text-blue-500" %> for more information on how to use Administrate.</p>
+  </div>
+</div>

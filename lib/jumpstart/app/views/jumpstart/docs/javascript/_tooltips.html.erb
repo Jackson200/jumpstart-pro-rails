@@ -1,0 +1,20 @@
+<div class="mb-10 pb-10 border-b border-gray-300">
+  <h3 class="h2 mb-2 pb-2">Tooltips</h3>
+
+  <p class="mb-4 leading-normal">Our tooltips are powered by <%= link_to "Tippy.js", "https://atomiks.github.io/tippyjs/", class: "link" %>. We've wrapped them in a Stimulus controller so you can easily add them anywhere in your application.</p>
+  <p class="mb-4 leading-normal">Simply add a <code>data-controller="tooltip" data-tippy-content="My tooltip"</code> to the element you want to add the tooltip to. You can set options using data attributes without writing any JS.</p>
+
+  <div class="mb-4">
+    <%= render "jumpstart/docs/snippet" do %>
+<button class="btn btn-primary" data-controller="tooltip" data-tippy-content="I'm a Tippy tooltip!" data-tippy-delay="0" data-tippy-arrow="true" data-tippy-size="regular" data-tippy-animation="fade">Hover over me</button>
+    <% end %>
+  </div>
+
+  <p class="mb-4 leading-normal">You can use the clipboard controller to copy text to the clipboard (with tooltips on success).</p>
+  <p class="mb-4 leading-normal">Add <code>data-controller="clipboard" data-clipboard-text="Text for clipboard"</code> to the element.</p>
+  <div class="mb-4">
+    <%= render "jumpstart/docs/snippet" do %>
+<button class="btn btn-primary" data-controller="clipboard" data-clipboard-text="Hello from Jumpstart Pro!">Copy to Clipboard</button>
+    <% end %>
+  </div>
+</div>
